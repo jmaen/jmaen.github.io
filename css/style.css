@@ -2,7 +2,7 @@
     --primary: #1D3557;
     --white: #FFFFFF;
     --light-gray: #EEEEEE;
-    --silver: #CCCCCC;
+    --silver: #D0D0D0;
     --gray: #919191;
     --dark-gray: #606060;
     --black: #000000;
@@ -93,7 +93,7 @@ hr {
     position: absolute;
     top: 50%;
     transform: translate(0, -50%);
-    height: 0.75rem;
+    height: 1.25rem;
     fill: var(--dark-gray);
 }
 
@@ -157,6 +157,7 @@ select {
 .select-box:hover .select-icon {
     fill: var(--gray);
 }
+
 /* Epoch Label */
 
 .label-box {
@@ -228,94 +229,56 @@ table input[type=text]:disabled {
 }
 
 .table-label {
-    padding-top: 15px;
+    padding-top: 1vh;
     color: var(--black);
-    font-size: 12px;
+    font-size: 0.75rem;
     font-family: "Poppins";
 }
 
-/* Buttons */
+.table-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-.button-center {
-    display: table-cell;
-    vertical-align: middle;
-    height: 80px;
-    width: 80px;
+.table-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 4vh;
+    margin-top: 1vh;
     border: none;
-    border-radius: 50%;
-    background-color: var(--primary);
-    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.8);
-    color: var(--white);
     cursor: pointer;
 }
 
-.button-center:hover {
-    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.8);
+.table-button + .table-button {
+    margin-left: 0.5vw;
 }
 
-.button-round {
-    display: table-cell;
-    vertical-align: middle;
-    height: 50px;
-    width: 50px;
-    margin-left: 10px;
-    margin-right: 10px;
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-}
-
-.button-round:disabled {
+.table-button:disabled {
     cursor: default;
 }
 
-.button-round:hover:enabled {
+.table-button:hover:enabled {
     background-color: var(--silver);
 }
 
-.button-capsule {
-    height: 50px;
-    min-width: 100px;
-    margin: 0 10px;
-    border: none;
+.round {
+    width: 4vh;
+    border-radius: 50%;
+}
+
+.capsule {
+    min-width: 5vw;
     border-radius: 5px;
-    padding: 0 15px;
-    font-family: "Poppins";
-    font-size: 16px;
-    font-weight: 500;
-    cursor: pointer;
-}
-
-.button-capsule:disabled {
-    cursor: default;
-}
-
-.gray {
-    background-color: var(--light-gray);
     color: var(--black);
+    font-family: "Poppins"; 
+    font-size: 0.825rem;
+    font-weight: 500;
 }
 
-.gray:hover:enabled {
-    background-color: var(--silver);
-}
-
-.red {
-    background-color: var(--red);
-    color: var(--white);
-}
-
-.red:hover:enabled {
-    background-color: var(--dark-red);
-}
-
-.material-icons .icon {
-    display: block;
-    font-size: 36px;
-    text-align: center;
-}
-
-#play-pause-icon {
-    font-size: 50px;
+.table-button-icon {
+    height: 2.2vh;
 }
 
 /* Radio Buttons */
@@ -434,8 +397,56 @@ footer {
 /* Controls */
 
 .controls {
-    display: block;
-    padding-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 9vh;
+    width: 9vh;
+    border: none;
+    border-radius: 50%;
+    background-color: var(--primary);
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.8);
+    cursor: pointer;
+}
+
+.button-center:hover {
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.8);
+}
+
+.button-round {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 5vh;
+    width: 5vh;
+    margin: 0 0.5vw;
+    border: none;
+    border-radius: 50%;
+    background-color: var(--light-gray);
+    cursor: pointer;
+}
+
+.button-round:disabled {
+    cursor: default;
+}
+
+.button-round:hover:enabled {
+    background-color: var(--silver);
+}
+
+.center-icon {
+    height: 6vh;
+    fill: var(--white);
+}
+
+.side-icon {
+    height: 2.5vh;
 }
 
 /* Modal */
@@ -454,22 +465,54 @@ footer {
 }
 
 .modal-box {
-    width: 30%;
-    height: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30vw;
+    height: 20vh;
     border-radius: 5px;
     background-color: var(--white);
 }
 
 .modal-header {
-    margin: 20px;
-    font-size: 20px;
+    font-size: 1.25rem;
     font-weight: 500;
 }
 
 .modal-text {
-    margin: 20px; 
+    margin: 2vh 0; 
 }
 
 .modal-buttons {
     text-align: center;
+}
+
+.modal-button {
+    height: 5vh;
+    width: 5vw;
+    margin: 0 0.5vw;
+    border: none;
+    border-radius: 5px;
+    font-family: "Poppins";
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.gray {
+    background-color: var(--light-gray);
+    color: var(--black);
+}
+
+.gray:hover {
+    background-color: var(--silver);
+}
+
+.red {
+    background-color: var(--red);
+    color: var(--white);
+}
+
+.red:hover {
+    background-color: var(--dark-red);
 }

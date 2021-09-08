@@ -1,8 +1,10 @@
 /*
 FIXME:
+- bias data
+
 - train(): worker threads
 
--configuration:
+- configuration:
 -- number inputs
 -- activation functions (sigmoid - only target values in [0; 1])
 -- epoch count
@@ -10,11 +12,28 @@ FIXME:
 - validateInput():
 
 TODO:
-- table button css
+- radio button css
 
 - accuracy plot (right column)
 (- svg tooltips)
 */
+
+class Configuration {
+    shape = [3, 2, 2];
+    learningRate = 0.1;
+
+    getShape() {
+        return this.shape;
+    }
+    getHiddenActivation() {
+    }
+    getOutputActivation() {
+        
+    }
+    getLearningRate() {
+        return this.learningRate;
+    }
+}
 
 class DataTable {
     constructor(table, inputSize, outputSize) {
@@ -328,7 +347,7 @@ class Sketch {
                     var weight = this.weights[i][j][k];
                     var path = this.paths[i][j][k];
                     path.setAttribute("class", weight > 0 ? "path-blue" : "path-red");
-                    path.setAttribute("stroke-width", 2 * Math.abs(weight));
+                    path.setAttribute("stroke-width", 3 * Math.abs(weight));
                     this.titles[i][j][k].innerHTML = weight;
                 }
             }
@@ -336,7 +355,7 @@ class Sketch {
 
         for(var i = 0; i < 3; i++) {
             for(var j = 0; j < this.layerSizes[i]; j++) {
-                this.texts[i][j].innerHTML = currentValues[i][j];
+                this.texts[i][j].innerHTML = Math.round((currentValues[i][j] + Number.EPSILON) * 1000) / 1000;
             }
         }
     }
@@ -368,19 +387,17 @@ class Sketch {
     }
 }
 
-var isTraining = false;
-var isTrained = false;
+let config = new Configuration();
 var dataTable;
 var sketch;
 var network;
-var shape = [3, 2, 2];
 
-function changeSizes() {
-    // TODO
-}
+var isTraining = false;
+var isTrained = false;
 
 // run on load & when shape or activations are updated
 function init() {
+    let shape = config.getShape();
     table = document.getElementById("data-table");
     dataTable = new DataTable(table, shape[0], shape[2]);
     for(var i = 0; i < 2; i++) {
@@ -404,73 +421,55 @@ function init() {
 }
 
 function toggle() {
-    icon = document.getElementById("play-pause-icon");
+    iconPath = document.getElementById("center-icon-path");
 
     if(!isTraining) {
-        icon.innerText = "pause";
-
-        if(!isTrained) {
-            dataTable.disable();
-
-            isTrained = true;
-        }
+        iconPath.setAttribute("d", "M6 19h4V5H6v14zm8-14v14h4V5h-4z");
 
         isTraining = true;
 
+        // disable step
+
         train();
     } else {
-        icon.innerText = "play_arrow";
+        iconPath.setAttribute("d", "M8 5v14l11-7z");
 
         isTraining = false;
+
+        // enable step
     }
 }
 
 // FIXME worker threads
 function train() {
     // while(isTraining) {
-    //     let inputs = dataTable.getInputs();
-    //     let targets = dataTable.getOutputs();
-    //     network.train(inputs, targets, 0.1);
-        
-    //     let outputs = [];
-    //     let weights = [];
-    //     for(let i = 0; i < inputs.length; i++) {
-    //         network.forwardProp(inputs[i]);
-    //         outputs.push(network.getOutputs());
-    //         weights.push(network.getWeights());
-    //     }
-
-    //     sketch.setValues(outputs);
-    //     sketch.setWeights(weights);
-    //     sketch.update(dataTable.getCurrentRow());
-    //     // update epoch label
+    //     step();
     // }
 }
 
 function step() {
-    if(!isTraining) {
-        if(!isTrained) {
-            dataTable.disable();
+    if(!isTrained) {
+        dataTable.disable();
 
-            isTrained = true;
-        }
-
-        let inputs = dataTable.getInputs();
-        let targets = dataTable.getOutputs();
-        network.train(inputs, targets, 0.1);
-        
-        let outputs = [];
-        let weights = [];
-        for(let i = 0; i < inputs.length; i++) {
-            network.forwardProp(inputs[i]);
-            outputs.push(network.getOutputs());
-            weights.push(network.getWeights());
-        }
-
-        sketch.setValues(outputs);
-        sketch.setWeights(weights);
-        sketch.update(dataTable.getCurrentRow());
+        isTrained = true;
     }
+
+    let inputs = dataTable.getInputs();
+    let targets = dataTable.getOutputs();
+    network.train(inputs, targets, config.getLearningRate());
+    
+    let outputs = [];
+    for(let i = 0; i < inputs.length; i++) {
+        network.forwardProp(inputs[i]);
+        outputs.push(network.getOutputs());
+    }
+    let weights = network.getWeights();
+
+    sketch.setValues(outputs);
+    sketch.setWeights(weights);
+    sketch.update(dataTable.getCurrentRow());
+
+    // update epoch label
 }
 
 function showResetModal() {

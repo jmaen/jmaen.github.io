@@ -1,27 +1,52 @@
 /*
 FIXME:
+- init(): reset table & sketch
+
 - bias data
 
-- train(): worker threads
-
 - configuration:
--- number inputs
 -- activation functions (sigmoid - only target values in [0; 1])
--- epoch count
+-- learning rate
 
 - validateInput():
 
 TODO:
 - radio button css
 
+- improve sketch svg
+
 - accuracy plot (right column)
-(- svg tooltips)
 */
 
 class Configuration {
     shape = [3, 2, 2];
+    hiddenActivation;
+    outputActivation;
     learningRate = 0.1;
+    epochCount = 0;
 
+    numberInputs = [];
+    epochLabel = document.getElementById("epoch-label");
+
+    constructor() {
+        for(let layerIdx = 0; layerIdx < 3; layerIdx++) {
+            this.numberInputs.push(document.getElementById(`number-input-${layerIdx}`));
+            this.numberInputs[layerIdx].innerHTML = this.shape[layerIdx];
+        }
+
+        let epochString = this.epochCount.toString();
+        epochString = epochString.padStart(6, "0");
+        epochString = epochString.substr(0, 3) + " " + epochString.substr(3, 6);
+        this.epochLabel.innerHTML = epochString;
+    }
+    changeShape(layerIdx, amount) {
+        let newValue = this.shape[layerIdx] + amount;
+        if(newValue > 0 && !((layerIdx == 0 && newValue > 5) || (layerIdx == 1 && newValue > 4) || (layerIdx == 2 && newValue > 3))) {
+            this.shape[layerIdx] = newValue;
+            this.numberInputs[layerIdx].innerHTML = this.shape[layerIdx];
+            init();
+        }
+    }
     getShape() {
         return this.shape;
     }
@@ -32,6 +57,22 @@ class Configuration {
     }
     getLearningRate() {
         return this.learningRate;
+    }
+    increaseEpochCount() {
+        this.epochCount += 1;
+
+        let epochString = this.epochCount.toString();
+        epochString = epochString.padStart(6, "0");
+        epochString = epochString.substr(0, 3) + " " + epochString.substr(3, 6);
+        this.epochLabel.innerHTML = epochString;
+    }
+    resetEpochCount() {
+        this.epochCount = 0;
+
+        let epochString = this.epochCount.toString();
+        epochString = epochString.padStart(6, "0");
+        epochString = epochString.substr(0, 3) + " " + epochString.substr(3, 6);
+        this.epochLabel.innerHTML = epochString;
     }
 }
 
@@ -396,6 +437,7 @@ var isTraining = false;
 var isTrained = false;
 
 // run on load & when shape or activations are updated
+// FIXME reset table & sketch
 function init() {
     let shape = config.getShape();
     table = document.getElementById("data-table");
@@ -421,14 +463,14 @@ function init() {
 }
 
 function toggle() {
-    iconPath = document.getElementById("center-icon-path");
+    let iconPath = document.getElementById("center-icon-path");
 
     if(!isTraining) {
         iconPath.setAttribute("d", "M6 19h4V5H6v14zm8-14v14h4V5h-4z");
 
         isTraining = true;
 
-        // disable step
+        // TODO disable step
 
         train();
     } else {
@@ -436,15 +478,15 @@ function toggle() {
 
         isTraining = false;
 
-        // enable step
+        // TODO enable step
     }
 }
 
-// FIXME worker threads
 function train() {
-    // while(isTraining) {
-    //     step();
-    // }
+    if(isTraining) {
+        step();
+        setTimeout(train, 25);
+    }
 }
 
 function step() {
@@ -469,7 +511,7 @@ function step() {
     sketch.setWeights(weights);
     sketch.update(dataTable.getCurrentRow());
 
-    // update epoch label
+    config.increaseEpochCount();
 }
 
 function showResetModal() {
@@ -484,14 +526,16 @@ function hideResetModal() {
 
 function reset() {
     if(isTraining) {
-        icon = document.getElementById("play-pause-icon");
-        icon.innerText = "play_arrow";
+        let iconPath = document.getElementById("center-icon-path");
+        iconPath.setAttribute("d", "M8 5v14l11-7z");
 
         isTraining = false;
     }
     dataTable.enable();
     sketch.disable();
-    // network.reset();
+    config.resetEpochCount();
+    // TODO network.reset();
+
     isTrained = false;
 }
 

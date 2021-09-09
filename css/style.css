@@ -374,6 +374,61 @@ text {
     stroke: var(--dark-red);
 }
 
+/* Controls */
+
+.controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.center-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 9vh;
+    width: 9vh;
+    border: none;
+    border-radius: 50%;
+    background-color: var(--primary);
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.8);
+    cursor: pointer;
+}
+
+.center-button:hover {
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.8);
+}
+
+.side-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 5vh;
+    width: 5vh;
+    margin: 0 0.5vw;
+    border: none;
+    border-radius: 50%;
+    background-color: var(--light-gray);
+    cursor: pointer;
+}
+
+.side-button:disabled {
+    cursor: default;
+}
+
+.side-button:hover:enabled {
+    background-color: var(--silver);
+}
+
+.center-icon {
+    height: 6vh;
+    fill: var(--white);
+}
+
+.side-icon {
+    height: 2.5vh;
+}
+
 /* Footer */
 
 footer {
@@ -392,61 +447,6 @@ footer {
     padding: 1vh 0;
     color: var(--white);
     font-size: 0.75rem;
-}
-
-/* Controls */
-
-.controls {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.button-center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 9vh;
-    width: 9vh;
-    border: none;
-    border-radius: 50%;
-    background-color: var(--primary);
-    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.8);
-    cursor: pointer;
-}
-
-.button-center:hover {
-    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.8);
-}
-
-.button-round {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 5vh;
-    width: 5vh;
-    margin: 0 0.5vw;
-    border: none;
-    border-radius: 50%;
-    background-color: var(--light-gray);
-    cursor: pointer;
-}
-
-.button-round:disabled {
-    cursor: default;
-}
-
-.button-round:hover:enabled {
-    background-color: var(--silver);
-}
-
-.center-icon {
-    height: 6vh;
-    fill: var(--white);
-}
-
-.side-icon {
-    height: 2.5vh;
 }
 
 /* Modal */

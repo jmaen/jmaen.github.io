@@ -21,25 +21,25 @@
                         <div class="item-column">
                             <p class="item-label">Input Neurons</p>
                             <div class="number-input">
-                                <svg class="item-icon number-input-icon left" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 13H5v-2h14v2z"/></svg>
-                                <p class="number-input-digit">3</p>
-                                <svg class="item-icon number-input-icon right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                                <svg class="item-icon number-input-icon left" onclick="config.changeShape(0, -1)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 13H5v-2h14v2z"/></svg>
+                                <p id="number-input-0" class="number-input-digit"></p>
+                                <svg class="item-icon number-input-icon right" onclick="config.changeShape(0, 1)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
                             </div>
                         </div>
                         <div class="item-column">
                             <p class="item-label">Hidden Neurons</p>
                             <div class="number-input">
-                                <svg class="item-icon number-input-icon left" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 13H5v-2h14v2z"/></svg>
-                                <p class="number-input-digit">2</p>
-                                <svg class="item-icon number-input-icon right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                                <svg class="item-icon number-input-icon left" onclick="config.changeShape(1, -1)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 13H5v-2h14v2z"/></svg>
+                                <p id="number-input-1" class="number-input-digit"></p>
+                                <svg class="item-icon number-input-icon right" onclick="config.changeShape(1, 1)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
                             </div>
                         </div>
                         <div class="item-column">
                             <p class="item-label">Output Neurons</p>
                             <div class="number-input">
-                                <svg class="item-icon number-input-icon left" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 13H5v-2h14v2z"/></svg>
-                                <p class="number-input-digit">1</p>
-                                <svg class="item-icon number-input-icon right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                                <svg class="item-icon number-input-icon left" onclick="config.changeShape(2, -1)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 13H5v-2h14v2z"/></svg>
+                                <p id="number-input-2" class="number-input-digit"></p>
+                                <svg class="item-icon number-input-icon right" onclick="config.changeShape(2, 1)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
                             </div>
                         </div>
                     </div>
@@ -94,7 +94,7 @@
                         <div class="item-column">
                             <p class="item-label">Current Epoch</p>
                             <div class="label-box">
-                                <p>000,000</p>
+                                <p id="epoch-label"></p>
                             </div>
                         </div>
                     </div>
@@ -116,9 +116,9 @@
                     <h2>NETWORK</h2>
                     <svg id="sketch"></svg>
                     <div class="controls">
-                        <button id="reset-button" class="button-round gray" title="Reset" onclick="showResetModal()"><svg class="side-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,5V1L7,6l5,5V7c3.31,0,6,2.69,6,6s-2.69,6-6,6s-6-2.69-6-6H4c0,4.42,3.58,8,8,8s8-3.58,8-8S16.42,5,12,5z"/></svg></button>
-                        <button id="train-button" class="button-center" title="Train" onclick="toggle()"><svg class="center-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path id="center-icon-path" d="M8 5v14l11-7z"/></svg></button>
-                        <button id="step-button" class="button-round gray" title="Step" onclick="step()"><svg class="side-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg></button>
+                        <button id="reset-button" class="side-button" title="Reset" onclick="showResetModal()"><svg class="side-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,5V1L7,6l5,5V7c3.31,0,6,2.69,6,6s-2.69,6-6,6s-6-2.69-6-6H4c0,4.42,3.58,8,8,8s8-3.58,8-8S16.42,5,12,5z"/></svg></button>
+                        <button id="train-button" class="center-button" title="Train" onclick="toggle()"><svg class="center-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path id="center-icon-path" d="M8 5v14l11-7z"/></svg></button>
+                        <button id="step-button" class="side-button" title="Step" onclick="step()"><svg class="side-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg></button>
                     </div>
                 </div>
                 <div class="column">

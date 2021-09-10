@@ -1,3 +1,5 @@
+// TODO rename link -> weight
+
 class Neuron {
     activation;
 
@@ -183,6 +185,7 @@ class Network {
                 for(let linkIdx = 0; linkIdx < links.length; linkIdx++) {
                     currentWeights.push(links[linkIdx].weight);
                 }
+                // currentWeights.push(bias);
                 weights[layerIdx - 1].push(currentWeights);
             }
         }

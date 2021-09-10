@@ -1,19 +1,19 @@
 /*
 FIXME:
-- init(): reset table & sketch
-
 - bias data
 
 - configuration:
 -- activation functions (sigmoid - only target values in [0; 1])
 -- learning rate
 
+- sketch svg size
+
 - validateInput():
 
 TODO:
-- radio button css
+- make font size responsive
 
-- improve sketch svg
+- radio button css
 
 - accuracy plot (right column)
 */
@@ -83,6 +83,8 @@ class DataTable {
         this.outputSize = outputSize;
         this.rows = [];
         this.radios = [];
+
+        this.table.innerHTML = "";
 
         var row = this.table.insertRow();
         for(var i = 0; i < this.inputSize + this.outputSize; i++) {
@@ -286,6 +288,8 @@ class Sketch {
         this.texts = [];
         this.values = [];
         this.weights = [];
+
+        this.svg.innerHTML = "";
     }
     draw() {
         var namespace = "http://www.w3.org/2000/svg";
@@ -436,8 +440,6 @@ var network;
 var isTraining = false;
 var isTrained = false;
 
-// run on load & when shape or activations are updated
-// FIXME reset table & sketch
 function init() {
     let shape = config.getShape();
     table = document.getElementById("data-table");
@@ -534,7 +536,7 @@ function reset() {
     dataTable.enable();
     sketch.disable();
     config.resetEpochCount();
-    // TODO network.reset();
+    network = new Network(config.getShape(), Activations.TanH, Activations.Sigmoid);
 
     isTrained = false;
 }

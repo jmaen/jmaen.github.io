@@ -1,10 +1,8 @@
-// TODO rename link -> weight
-
 class Neuron {
     activation;
 
-    inputLinks = [];
-    outputLinks = [];
+    inputWeights = [];
+    outputWeights = [];
     bias = 0.1;
 
     output;
@@ -17,8 +15,8 @@ class Neuron {
 
     updateOutput() {
         let input = this.bias;
-        for(let link of this.inputLinks) {
-            input += link.weight * link.source.output;
+        for(let weight of this.inputWeights) {
+            input += weight.value * weight.source.output;
         }
         this.output = this.activation.output(input);
         this.derivative = this.activation.derivative(input);
@@ -26,28 +24,28 @@ class Neuron {
 
     updateError() {
         let sum = 0;
-        for(let link of this.outputLinks) {
-            sum += link.destination.error * link.weight;
+        for(let weight of this.outputWeights) {
+            sum += weight.destination.error * weight.value;
         }
         this.error = this.derivative * sum;
     }
 
     updateWeights(learningRate) {
-        for(let linkIdx = 0; linkIdx < this.outputLinks.length; linkIdx++) {
-            let nextNeuron = this.outputLinks[linkIdx].destination;
+        for(let weightIdx = 0; weightIdx < this.outputWeights.length; weightIdx++) {
+            let nextNeuron = this.outputWeights[weightIdx].destination;
             let delta = -learningRate * nextNeuron.error * this.output;
-            this.outputLinks[linkIdx].weight += delta;
-            nextNeuron.inputLinks[linkIdx].weight += delta;
+            this.outputWeights[weightIdx].value += delta;
+            nextNeuron.inputWeights[weightIdx].value += delta;
             nextNeuron.bias += -learningRate * nextNeuron.error;
         }
     }
 }
 
-class Link {
+class Weight {
     source;
     destination;
 
-    weight = Math.random() - 0.5;
+    value = Math.random() - 0.5;
 
     constructor(source, destination) {
         this.source = source;
@@ -118,9 +116,9 @@ class Network {
 
                 if(layerIdx > 0) {
                     for(let prevNeuron of this.neurons[layerIdx - 1]) {
-                        let currentLink = new Link(prevNeuron, currentNeuron);
-                        currentNeuron.inputLinks.push(currentLink);
-                        prevNeuron.outputLinks.push(currentLink);
+                        let currentWeight = new Weight(prevNeuron, currentNeuron);
+                        currentNeuron.inputWeights.push(currentWeight);
+                        prevNeuron.outputWeights.push(currentWeight);
                     }
                 }
 
@@ -173,6 +171,7 @@ class Network {
                 outputs[layerIdx].push(this.neurons[layerIdx][neuronIdx].output);
             }
         }
+        console.log(outputs);
         return outputs;
     }
 
@@ -180,35 +179,15 @@ class Network {
         let weights = [[], []];
         for(let layerIdx = 1; layerIdx < 3; layerIdx++) {
             for(let neuronIdx = 0; neuronIdx < this.neurons[layerIdx].length; neuronIdx++) {
-                let links = this.neurons[layerIdx][neuronIdx].inputLinks;
+                let currentNeuron = this.neurons[layerIdx][neuronIdx];
                 let currentWeights = [];
-                for(let linkIdx = 0; linkIdx < links.length; linkIdx++) {
-                    currentWeights.push(links[linkIdx].weight);
+                for(let weightIdx = 0; weightIdx < currentNeuron.inputWeights.length; weightIdx++) {
+                    currentWeights.push(currentNeuron.inputWeights[weightIdx].value);
                 }
-                // currentWeights.push(bias);
+                currentWeights.push(currentNeuron.bias);
                 weights[layerIdx - 1].push(currentWeights);
             }
         }
         return weights;
     }
 }
-
-// let network = new Network([3, 2, 1], Activations.TanH, Activations.Sigmoid);
-// let input = [[1, 0, 0.7], [0.3, 0.2, 1]];
-// let target = [[0.4], [0.9]];
-// network.forwardProp(input[0]);
-// console.log(network.getOutputs());
-// console.log(network.getWeights());
-// network.forwardProp(input[1]);
-// console.log(network.getOutputs());
-// console.log(network.getWeights());
-// for(let i = 0; i < 100000; i++) {
-//     network.train(input[0], target[0], 0.1);
-//     network.train(input[1], target[1], 0.1);
-// }
-// network.forwardProp(input[0]);
-// console.log(network.getOutputs());
-// console.log(network.getWeights());
-// network.forwardProp(input[1]);
-// console.log(network.getOutputs());
-// console.log(network.getWeights());

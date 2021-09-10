@@ -248,7 +248,7 @@ class DataTable {
         for(let row = 0; row < this.rows.length; row++) {
             let input = [];
             for(let i = 0; i < this.inputSize; i++) {
-                input.push(this.rows[row][i].value);
+                input.push(parseFloat(this.rows[row][i].value));
             }
             inputs.push(input);
         }
@@ -259,7 +259,7 @@ class DataTable {
         for(let row = 0; row < this.rows.length; row++) {
             let output = [];
             for(let i = this.inputSize; i < this.inputSize + this.outputSize; i++) {
-                output.push(this.rows[row][i].value);
+                output.push(parseFloat(this.rows[row][i].value));
             }
             outputs.push(output);
         }

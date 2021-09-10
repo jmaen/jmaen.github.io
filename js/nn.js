@@ -93,13 +93,6 @@ class ReLU {
     }
 }
 
-class Activations {
-    static Linear = new Linear();
-    static Sigmoid = new Sigmoid();
-    static TanH = new TanH();
-    static ReLU = new ReLU();
-}
-
 class Network {
     neurons = [[], [], []];
 
@@ -171,7 +164,6 @@ class Network {
                 outputs[layerIdx].push(this.neurons[layerIdx][neuronIdx].output);
             }
         }
-        console.log(outputs);
         return outputs;
     }
 

@@ -50,11 +50,11 @@
                         <div class="item-column">
                             <p class="item-label">Hidden Layer</p>
                             <div class="select-box">
-                                <select>
-                                    <option>Linear</option>
-                                    <option>Sigmoid</option>
-                                    <option selected>TanH</option>
-                                    <option>ReLU</option>
+                                <select onchange="config.changeActivation('hidden', this.value)">
+                                    <option value="0">Linear</option>
+                                    <option value="1">Sigmoid</option>
+                                    <option value="2" selected>TanH</option>
+                                    <option value="3">ReLU</option>
                                 </select>
                                 <svg class="item-icon select-icon right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>
                             </div>
@@ -62,7 +62,7 @@
                         <div class="item-column">
                             <p class="item-label">Output Layer</p>
                             <div class="select-box">
-                                <select>
+                                <select onchange="config.changeActivation('output', this.value)">
                                     <option>Linear</option>
                                     <option selected>Sigmoid</option>
                                     <option>TanH</option>
@@ -79,7 +79,7 @@
                         <div class="item-column">
                             <p class="item-label">Learning Rate</p>
                             <div class="select-box">
-                                <select>
+                                <select onchange="config.changeLearningRate(this.value)">
                                     <option>0.0001</option>
                                     <option>0.001</option>
                                     <option>0.003</option>

@@ -1,11 +1,5 @@
 /*
 FIXME:
-- bias data
-
-- configuration:
--- activation functions (sigmoid - only target values in [0; 1])
--- learning rate
-
 - sketch svg size
 
 - validateInput():
@@ -15,13 +9,16 @@ TODO:
 
 - radio button css
 
+- improve javascript
+
 - accuracy plot (right column)
 */
 
 class Configuration {
+    activations = [new Linear(), new Sigmoid(), new TanH(), new ReLU()];
     shape = [3, 2, 2];
-    hiddenActivation;
-    outputActivation;
+    hiddenActivationIdx = 2;
+    outputActivationIdx = 1;
     learningRate = 0.1;
     epochCount = 0;
 
@@ -50,10 +47,22 @@ class Configuration {
     getShape() {
         return this.shape;
     }
+    changeActivation(layer, activationIdx) {
+        if(layer == "hidden") {
+            this.hiddenActivationIdx = parseInt(activationIdx);
+        } else {
+            this.outputActivationIdx = parseInt(activationIdx);
+        }
+        init();
+    }
     getHiddenActivation() {
+        return this.activations[this.hiddenActivationIdx];
     }
     getOutputActivation() {
-        
+        return this.activations[this.outputActivationIdx];
+    }
+    changeLearningRate(value) {
+        this.learningRate = parseFloat(value);
     }
     getLearningRate() {
         return this.learningRate;
@@ -392,7 +401,7 @@ class Sketch {
                     var weight = this.weights[i][j][k];
                     var path = this.paths[i][j][k];
                     path.setAttribute("class", weight > 0 ? "path-blue" : "path-red");
-                    path.setAttribute("stroke-width", 3 * Math.abs(weight));
+                    path.setAttribute("stroke-width", 2 * Math.abs(weight));
                     this.titles[i][j][k].innerHTML = weight;
                 }
             }
@@ -461,7 +470,7 @@ function init() {
     sketch.draw();
     sketch.disable();
 
-    network = new Network(shape, Activations.TanH, Activations.Sigmoid);
+    network = new Network(shape, config.getHiddenActivation(), config.getOutputActivation());
 }
 
 function toggle() {
@@ -536,7 +545,7 @@ function reset() {
     dataTable.enable();
     sketch.disable();
     config.resetEpochCount();
-    network = new Network(config.getShape(), Activations.TanH, Activations.Sigmoid);
+    network = new Network(config.getShape(), config.getHiddenActivation(), config.getOutputActivation());
 
     isTrained = false;
 }

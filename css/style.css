@@ -21,6 +21,10 @@
     box-sizing: border-box;
 }
 
+html {
+    font-size: 16px;
+}
+
 body {
     background-color: var(--white);
     font-family: "Poppins";
@@ -344,18 +348,29 @@ table input[type=text]:disabled {
 
 /* SVG */
 
+.sketch {
+    height: 50vh;
+    width: 50vh;
+}
+
 circle {
     fill: var(--light-gray);
     stroke: var(--silver);
-    stroke-width: 2;
+    stroke-width: 3;
 }
 
 text {
     fill: var(--black);
+    font-size: 28px;
+}
+
+.sketch path {
+    fill: none;
 }
 
 .path-neutral {
     stroke: var(--black);
+    stroke-width: 3;
 }
 
 .path-blue {

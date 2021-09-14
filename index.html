@@ -114,7 +114,7 @@
                 </div>
                 <div class="column">
                     <h2>NETWORK</h2>
-                    <svg id="sketch"></svg>
+                    <svg id="sketch" class="sketch" viewBox="0 0 1000 1000"></svg>
                     <div class="controls">
                         <button id="reset-button" class="side-button" title="Reset" onclick="showResetModal()"><svg class="side-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,5V1L7,6l5,5V7c3.31,0,6,2.69,6,6s-2.69,6-6,6s-6-2.69-6-6H4c0,4.42,3.58,8,8,8s8-3.58,8-8S16.42,5,12,5z"/></svg></button>
                         <button id="train-button" class="center-button" title="Train" onclick="toggle()"><svg class="center-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path id="center-icon-path" d="M8 5v14l11-7z"/></svg></button>
@@ -149,21 +149,6 @@
             </div>
         </div>
 
-        <script>
-            // var intervalID = window.setInterval(update_values, 100);
-            // function update_values() {
-            //     if(isTraining) {
-            //         $.getJSON($SCRIPT_ROOT + "/_get_data",
-            //             function(data) {
-            //                 if(isTraining) {
-            //                     sketch.setValues(data.values);
-            //                     sketch.setWeights(data.weights);
-            //                     sketch.update(dataTable.getCurrentRow());
-            //                 }
-            //             });
-            //     }
-            // }
-        </script>
         <script type=text/javascript src="js/jquery.js"></script>
         <script type=text/javascript src="js/nn.js"></script>
         <script type=text/javascript src="js/main.js"></script>

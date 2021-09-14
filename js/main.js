@@ -1,7 +1,5 @@
 /*
 FIXME:
-- sketch svg size
-
 - validateInput():
 
 TODO:
@@ -38,7 +36,7 @@ class Configuration {
     }
     changeShape(layerIdx, amount) {
         let newValue = this.shape[layerIdx] + amount;
-        if(newValue > 0 && !((layerIdx == 0 && newValue > 5) || (layerIdx == 1 && newValue > 4) || (layerIdx == 2 && newValue > 3))) {
+        if(newValue > 0 && !(newValue > 5 || (layerIdx == 2 && newValue > 3))) {
             this.shape[layerIdx] = newValue;
             this.numberInputs[layerIdx].innerHTML = this.shape[layerIdx];
             init();
@@ -285,158 +283,163 @@ class DataTable {
 }
 
 class Sketch {
-    constructor(svg, inputSize, hiddenSize, outputSize) {
-        this.svg = svg;
-        this.inputSize = inputSize;
-        this.hiddenSize = hiddenSize;
-        this.outputSize = outputSize;
-        this.layerSizes = [this.inputSize, this.hiddenSize, this.outputSize];
-        this.paths = [];
-        this.titles = [];
-        this.circles = [];
-        this.texts = [];
-        this.values = [];
-        this.weights = [];
+    svg = document.getElementById("sketch");
+    paths = [];
+    titles = [];
+    circles = [];
+    texts = [];
+    values = [];
+    weights = [];
+
+    constructor(shape) {
+        this.shape = shape;
 
         this.svg.innerHTML = "";
     }
     draw() {
-        var namespace = "http://www.w3.org/2000/svg";
-        
-        var radius = 25;
-        var padding = 25;
-        var spacingX = 200;
-        var spacingY = 100;
-        var spacingBias = spacingY + radius;
-        var center0 = ((this.layerSizes[0] - 1) * spacingY) / 2;
-        var distanceY = ((this.layerSizes[0] - 1) * spacingY) + spacingBias;
+        let namespace = "http://www.w3.org/2000/svg";
 
-        this.svg.setAttribute("height", 2 * padding + distanceY + 2 * radius);
-        this.svg.setAttribute("width", 2 * padding + 2 * spacingX + 2 * radius);
-        for(var i = 0; i < 2; i++) {
+        let size = 1000;
+        let radius = 50;
+        let max = Math.max(...this.shape);
+        let paddingX = 50;
+        let spacingX = 300;
+        let spacingY;
+        if(max == 1) {
+            spacingY = 600;
+        } else if(max == 2) {
+            spacingY = 250;
+        } else if(max == 3) {
+            spacingY = 133.33;
+        } else if(max == 4) {
+            spacingY = 75;
+        } else {
+            spacingY = 40;
+        }
+        let minPaddingY = 50;
+        let biasY = size - minPaddingY - radius;
+
+        for(let layerIdx = 0; layerIdx < 2; layerIdx++) {
             this.paths.push([]);
             this.titles.push([]);
 
-            var centerI = ((this.layerSizes[i] - 1) * spacingY) / 2;
-            var offset1 = center0 - centerI;
-            var centerII = ((this.layerSizes[i + 1] - 1) * spacingY) / 2;
-            var offset2 = center0 - centerII;
-            for(var j = 0; j < this.layerSizes[i + 1]; j++) {
-                this.paths[i].push([]);
-                this.titles[i].push([]);
-                for(var k = 0; k < this.layerSizes[i]; k++) {
-                    var title = document.createElementNS(namespace, "title");
-                    var path = document.createElementNS(namespace, "path");
-                    var x1 = padding + i * spacingX + 2 * radius;
-                    var x2 = padding + (i + 1) * spacingX;
-                    var y1 = padding + k * spacingY + offset1 + radius;
-                    var y2 = padding + j * spacingY + offset2 + radius;
+            let x1 = paddingX + (2 * radius + spacingX) * layerIdx + 2 * radius;
+            let x2 = paddingX + (2 * radius + spacingX) * (layerIdx + 1);
+
+            let n1 = this.shape[layerIdx];
+            let height1 = (n1 + 2) * (2 * radius) + n1 * spacingY;
+            let paddingY1 = (size - height1) / 2;
+
+            let n2 = this.shape[layerIdx + 1];
+            let height2 = (n2 + 2) * (2 * radius) + n2 * spacingY;
+            let paddingY2 = (size - height2) / 2;
+            for(let nextNeuronIdx = 0; nextNeuronIdx < this.shape[layerIdx + 1]; nextNeuronIdx++) {
+                this.paths[layerIdx].push([]);
+                this.titles[layerIdx].push([]);
+
+                let y2 = paddingY2 + (2 * radius + spacingY) * nextNeuronIdx + radius;
+                for(let neuronIdx = 0; neuronIdx < this.shape[layerIdx]; neuronIdx++) {
+                    let y1 = paddingY1 + (2 * radius + spacingY) * neuronIdx + radius;
+
+                    let path = document.createElementNS(namespace, "path");
                     path.setAttribute("d", `M ${x1} ${y1} Q ${(x2 - x1) / 4 + x1} ${y1} ${(x2 - x1) / 2 + x1} ${(y2 - y1) / 2 + y1} T ${x2} ${y2}`);
-                    path.setAttribute("stroke-width", 3);
-                    path.setAttribute("fill", "none");
+                    let title = document.createElementNS(namespace, "title");
                     path.appendChild(title);
                     this.svg.appendChild(path);
-                    this.paths[i][j].push(path);
-                    this.titles[i][j].push(title);
+                    this.paths[layerIdx][nextNeuronIdx].push(path);
+                    this.titles[layerIdx][nextNeuronIdx].push(title);
                 }
-                var title = document.createElementNS(namespace, "title");
-                var path = document.createElementNS(namespace, "path");
-                var x1 = padding + i * spacingX + 2 * radius;
-                var x2 = padding + (i + 1) * spacingX;
-                var y1 = padding + distanceY + radius;
-                var y2 = padding + j * spacingY + offset2 + radius;
-                path.setAttribute("d", `M ${x1} ${y1} Q ${(x2 - x1) / 4 + x1} ${y1} ${(x2 - x1) / 2 + x1} ${(y2 - y1) / 2 + y1} T ${x2} ${y2}`);
-                path.setAttribute("stroke-width", 3);                    
-                path.setAttribute("fill", "none");
+                let y1 = biasY;
+
+                let path = document.createElementNS(namespace, "path");
+                path.setAttribute("d", `M ${x1} ${y1} Q ${(x2 - x1) / 4 + x1} ${y1} ${(x2 - x1) / 2 + x1} ${(y2 - y1) / 2 + y1} T ${x2} ${y2}`);                  
+                let title = document.createElementNS(namespace, "title");
                 path.appendChild(title);
                 this.svg.appendChild(path);
-                this.paths[i][j].push(path);
-                this.titles[i][j].push(title);
+                this.paths[layerIdx][nextNeuronIdx].push(path);
+                this.titles[layerIdx][nextNeuronIdx].push(title);
             }
         }
 
-        for(var i = 0; i < 3; i++) {
+        for(let layerIdx = 0; layerIdx < 3; layerIdx++) {
             this.circles.push([]);
             this.texts.push([]);
 
-            var centerI = ((this.layerSizes[i] - 1) * 100) / 2;
-            var offset = center0 - centerI;
-            for(var j = 0; j < this.layerSizes[i]; j++) {
-                var x = padding + i * spacingX + radius;
-                var y = padding + j * spacingY + offset + radius;
+            let x = paddingX + (2 * radius + spacingX) * layerIdx + radius;
 
-                var circle = document.createElementNS(namespace, "circle");
+            let n = this.shape[layerIdx];
+            let height = (n + 2) * (2 * radius) + n * spacingY;
+            let paddingY = (size - height) / 2;
+            for(let neuronIdx = 0; neuronIdx < this.shape[layerIdx]; neuronIdx++) {
+                let y = paddingY + (2 * radius + spacingY) * neuronIdx + radius;
+
+                let circle = document.createElementNS(namespace, "circle");
                 circle.setAttribute("cx", x);
                 circle.setAttribute("cy", y);
                 circle.setAttribute("r", radius);
                 this.svg.appendChild(circle);
-                this.circles[i].push(circle);
+                this.circles[layerIdx].push(circle);
 
-                var text = document.createElementNS(namespace, "text");
+                let text = document.createElementNS(namespace, "text");
                 text.setAttribute("x", x);
                 text.setAttribute("y", y);
                 text.setAttribute("dominant-baseline", "middle");
                 text.setAttribute("text-anchor", "middle");
                 this.svg.appendChild(text);
-                this.texts[i].push(text);
+                this.texts[layerIdx].push(text);
             }
-            if(i != 2) {
-                var circle = document.createElementNS(namespace, "circle");
-                var x = padding + i * spacingX + radius;
-                var y = padding + distanceY + radius;
+            if(layerIdx != 2) {
+                let circle = document.createElementNS(namespace, "circle");
                 circle.setAttribute("cx", x);
-                circle.setAttribute("cy", y);
+                circle.setAttribute("cy", biasY);
                 circle.setAttribute("r", radius);
                 this.svg.appendChild(circle);
-                this.circles[i].push(circle);
-            }
+                this.circles[layerIdx].push(circle);
+            }      
         }
     }
     update(currentRow) {
-        var currentValues = this.values[currentRow];
+        let currentValues = this.values[currentRow];
         
-        for(var i = 0; i < 2; i++) {
-            for(var j = 0; j < this.layerSizes[i + 1]; j++) {
-                for(var k = 0; k < this.layerSizes[i] + 1; k++) {
-                    var weight = this.weights[i][j][k];
-                    var path = this.paths[i][j][k];
+        for(let layerIdx = 0; layerIdx < 2; layerIdx++) {
+            for(let nextNeuronIdx = 0; nextNeuronIdx < this.shape[layerIdx + 1]; nextNeuronIdx++) {
+                for(let neuronIdx = 0; neuronIdx < this.shape[layerIdx] + 1; neuronIdx++) {
+                    let weight = this.weights[layerIdx][nextNeuronIdx][neuronIdx];
+                    let path = this.paths[layerIdx][nextNeuronIdx][neuronIdx];
                     path.setAttribute("class", weight > 0 ? "path-blue" : "path-red");
                     path.setAttribute("stroke-width", 2 * Math.abs(weight));
-                    this.titles[i][j][k].innerHTML = weight;
+                    this.titles[layerIdx][nextNeuronIdx][neuronIdx].innerHTML = weight;
                 }
             }
         }
 
-        for(var i = 0; i < 3; i++) {
-            for(var j = 0; j < this.layerSizes[i]; j++) {
-                this.texts[i][j].innerHTML = Math.round((currentValues[i][j] + Number.EPSILON) * 1000) / 1000;
+        for(let layerIdx = 0; layerIdx < 3; layerIdx++) {
+            for(let nextNeuronIdx = 0; nextNeuronIdx < this.shape[layerIdx]; nextNeuronIdx++) {
+                this.texts[layerIdx][nextNeuronIdx].innerHTML = Math.round((currentValues[layerIdx][nextNeuronIdx] + Number.EPSILON) * 1000) / 1000;
             }
         }
     }
     disable() {
-        for(var i = 0; i < 2; i++) {
-            for(var j = 0; j < this.layerSizes[i + 1]; j++) {
-                for(var k = 0; k < this.layerSizes[i] + 1; k++) {
-                    var path = this.paths[i][j][k];
+        for(let layerIdx = 0; layerIdx < 2; layerIdx++) {
+            for(let nextNeuronIdx = 0; nextNeuronIdx < this.shape[layerIdx + 1]; nextNeuronIdx++) {
+                for(let neuronIdx = 0; neuronIdx < this.shape[layerIdx] + 1; neuronIdx++) {
+                    let path = this.paths[layerIdx][nextNeuronIdx][neuronIdx];
                     path.setAttribute("class", "path-neutral");
-                    path.setAttribute("stroke-width", 2);
-                    this.titles[i][j][k].innerHTML = "";
+                    this.titles[layerIdx][nextNeuronIdx][neuronIdx].innerHTML = "";
                 }
             }
         }
 
-        for(var i = 0; i < 3; i++) {
-            for(var j = 0; j < this.layerSizes[i]; j++) {
-                this.texts[i][j].innerHTML = "";
+        for(let layerIdx = 0; layerIdx < 3; layerIdx++) {
+            for(let nextNeuronIdx = 0; nextNeuronIdx < this.shape[layerIdx]; nextNeuronIdx++) {
+                this.texts[layerIdx][nextNeuronIdx].innerHTML = "";
             }
         }
     }
     setValues(values) {
-        // TODO check dimensions
         this.values = values;
     }
     setWeights(weights) {
-        // TODO check dimensions
         this.weights = weights;
     }
 }
@@ -465,8 +468,7 @@ function init() {
         dataTable.addRow(input, output);
     }
 
-    svg = document.getElementById("sketch");
-    sketch = new Sketch(svg, shape[0], shape[1], shape[2]);
+    sketch = new Sketch(shape);
     sketch.draw();
     sketch.disable();
 

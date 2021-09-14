@@ -56,6 +56,7 @@ h2 {
     color: var(--primary);
     font-size: 1rem;
     font-weight: 500;
+    text-transform: uppercase;
 }
 
 hr {
@@ -175,11 +176,13 @@ select {
 
 .visualization {
     display: flex;
+    align-items: center;
     height: 74vh;
     padding: 1vh 0;
 }
 
 .column {
+    height: 68vh;
     width: 33.33vw;
     text-align: center;
 }
@@ -351,6 +354,7 @@ table input[type=text]:disabled {
 .sketch {
     height: 50vh;
     width: 50vh;
+    margin-bottom: 4vh;
 }
 
 circle {

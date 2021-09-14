@@ -1,15 +1,19 @@
 /*
 FIXME:
+- disable / enable configuration section, add info modal
+
 - validateInput():
 
 TODO:
-- make font size responsive
+- visualization section layout
 
 - radio button css
 
 - improve javascript
 
-- accuracy plot (right column)
+- responsive design
+
+- neuron detail view
 */
 
 class Configuration {

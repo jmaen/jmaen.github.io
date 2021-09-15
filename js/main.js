@@ -5,15 +5,11 @@ FIXME:
 - validateInput():
 
 TODO:
-- visualization section layout
+- neuron detail view
 
 - radio button css
 
-- improve javascript
-
 - responsive design
-
-- neuron detail view
 */
 
 class Configuration {
@@ -88,18 +84,19 @@ class Configuration {
 }
 
 class DataTable {
-    constructor(table, inputSize, outputSize) {
-        this.table = table;
+    table = document.getElementById("data-table");
+    rows = [];
+    radios = [];
+
+    constructor(inputSize, outputSize) {
         this.inputSize = inputSize;
         this.outputSize = outputSize;
-        this.rows = [];
-        this.radios = [];
 
         this.table.innerHTML = "";
 
-        var row = this.table.insertRow();
-        for(var i = 0; i < this.inputSize + this.outputSize; i++) {
-            var header = document.createElement("th");
+        let row = this.table.insertRow();
+        for(let i = 0; i < this.inputSize + this.outputSize; i++) {
+            let header = document.createElement("th");
             if(i == 0) {
                 header.innerHTML = "Input";
             } else if(i == this.inputSize) {
@@ -110,47 +107,41 @@ class DataTable {
         }
     }
     addRow(input, output) {
-    if(!input) {
+        if(!input) {
             input = [];
-            for(var i = 0; i < this.inputSize; i++) {
+            for(let i = 0; i < this.inputSize; i++) {
                 input.push("0");
             }
         }
         if(!output) {
             output = [];
-            for(var i = 0; i < this.outputSize; i++) {
+            for(let i = 0; i < this.outputSize; i++) {
                 output.push("0");
             }
-        }        
-        if(input.length != this.inputSize) {
-            throw "Wrong input dimension!";
-        }
-        if(output.length != this.outputSize) {
-            throw "Wrong output dimension!";
         }
 
-        var index = this.rows.length;
-        var row = this.table.insertRow();
+        let index = this.rows.length;
+        let row = this.table.insertRow();
         this.rows.push([]);
         
-        for(var i = 0; i < this.inputSize; i++) {
-            var inputField = document.createElement("input");
+        for(let i = 0; i < this.inputSize; i++) {
+            let inputField = document.createElement("input");
             inputField.setAttribute("type", "text");
             inputField.setAttribute("value", input[i]);
             inputField.setAttribute("onkeydown", "return validateInput(event)");
             inputField.setAttribute("onfocusout", "return validateValue(event)");
-            var cell = row.insertCell();
+            let cell = row.insertCell();
             cell.appendChild(inputField);
             this.rows[index].push(inputField);
         }
     
-        for(var i = 0; i < this.outputSize; i++) {
-            var outputField = document.createElement("input");
+        for(let i = 0; i < this.outputSize; i++) {
+            let outputField = document.createElement("input");
             outputField.setAttribute("type", "text");
             outputField.setAttribute("value", output[i]);
             outputField.setAttribute("onkeydown", "return validateInput(event)");
             outputField.setAttribute("onfocusout", "return validateValue(event)");
-            var cell = row.insertCell();
+            let cell = row.insertCell();
             if(i == 0) {
                 cell.setAttribute("class", "padding-left");
             }
@@ -158,27 +149,27 @@ class DataTable {
             this.rows[index].push(outputField);
         }
     
-        var radio = document.createElement("input");
+        let radio = document.createElement("input");
         radio.setAttribute("type", "radio");
         radio.setAttribute("name", "currentRow");
         radio.setAttribute("onclick", "sketch.update(" + index + ")");
         radio.setAttribute("disabled", true);
-        var checkmark = document.createElement("span");
+        let checkmark = document.createElement("span");
         checkmark.setAttribute("class", "checkmark");
-        var container = document.createElement("div");
+        let container = document.createElement("div");
         container.setAttribute("class", "radio");
         container.appendChild(radio);
         container.appendChild(checkmark);
-        var cell = row.insertCell();
+        let cell = row.insertCell();
         cell.appendChild(container);
         this.radios.push(radio);
 
         if(this.rows.length > 2) {
-            var removeButton = document.getElementById("remove-button");
+            let removeButton = document.getElementById("remove-button");
             removeButton.disabled = false;
         }
         if(this.rows.length > 9) {
-            var addButton = document.getElementById("add-button");
+            let addButton = document.getElementById("add-button");
             addButton.disabled = true;
         }
 
@@ -187,17 +178,17 @@ class DataTable {
         }
     }
     removeRow() {
-        var row = this.rows[this.rows.length - 1][0].parentNode.parentNode;
+        let row = this.rows[this.rows.length - 1][0].parentNode.parentNode;
         row.parentNode.removeChild(row);
         this.rows.pop();
         this.radios.pop();
 
         if(this.rows.length <= 2) {
-            var removeButton = document.getElementById("remove-button");
+            let removeButton = document.getElementById("remove-button");
             removeButton.disabled = true;
         }
         if(this.rows.length <= 9) {
-            var addButton = document.getElementById("add-button");
+            let addButton = document.getElementById("add-button");
             addButton.disabled = false;
         }  
 
@@ -206,52 +197,52 @@ class DataTable {
         }
     }
     randomizeValues() {
-        for(var i = 0; i < this.rows.length; i++) {
-            for(var j = 0; j < this.inputSize + this.outputSize; j++) {
-                var value = Math.floor(Math.random() * 1000) / 100;
+        for(let i = 0; i < this.rows.length; i++) {
+            for(let j = 0; j < this.inputSize + this.outputSize; j++) {
+                let value = Math.floor(Math.random() * 1000) / 100;
                 value *= Math.round(Math.random()) ? 1 : -1;
                 this.rows[i][j].value = value;
             }
         }
     }
     disable() {
-        for(var i = 0; i < this.rows.length; i++) {
-            for(var j = 0; j < this.inputSize + this.outputSize; j++) {
+        for(let i = 0; i < this.rows.length; i++) {
+            for(let j = 0; j < this.inputSize + this.outputSize; j++) {
                 this.rows[i][j].disabled = true;
             }
         }
-        for(var i = 0; i < this.radios.length; i++) {
+        for(let i = 0; i < this.radios.length; i++) {
             this.radios[i].disabled = false;
         }
-        var addButton = document.getElementById("add-button");
+        let addButton = document.getElementById("add-button");
         addButton.disabled = true;
-        var removeButton = document.getElementById("remove-button");
+        let removeButton = document.getElementById("remove-button");
         removeButton.disabled = true;
-        var randomizeButton = document.getElementById("randomize-button");
+        let randomizeButton = document.getElementById("randomize-button");
         randomizeButton.disabled = true;
-        var label = document.getElementById("table-label");
+        let label = document.getElementById("table-label");
         label.hidden = false;
     }
     enable() {
-        for(var i = 0; i < this.rows.length; i++) {
-            for(var j = 0; j < this.inputSize + this.outputSize; j++) {
+        for(let i = 0; i < this.rows.length; i++) {
+            for(let j = 0; j < this.inputSize + this.outputSize; j++) {
                 this.rows[i][j].disabled = false;
             }
         }
-        for(var i = 0; i < this.radios.length; i++) {
+        for(let i = 0; i < this.radios.length; i++) {
             this.radios[i].disabled = true;
         }
         if(this.rows.length <= 9) {
-            var addButton = document.getElementById("add-button");
+            let addButton = document.getElementById("add-button");
             addButton.disabled = false;
         }
         if(this.rows.length > 2) {
-            var removeButton = document.getElementById("remove-button");
+            let removeButton = document.getElementById("remove-button");
             removeButton.disabled = false;
         }
-        var randomizeButton = document.getElementById("randomize-button");
+        let randomizeButton = document.getElementById("randomize-button");
         randomizeButton.disabled = false;
-        var label = document.getElementById("table-label");
+        let label = document.getElementById("table-label");
         label.hidden = true;
     }
     getInputs() {
@@ -277,7 +268,7 @@ class DataTable {
         return outputs;
     }
     getCurrentRow() {
-        for(var i = 0; i < this.radios.length; i++) {
+        for(let i = 0; i < this.radios.length; i++) {
             if(this.radios[i].checked) {
                 return i;
             }
@@ -303,10 +294,12 @@ class Sketch {
     draw() {
         let namespace = "http://www.w3.org/2000/svg";
 
-        let size = 1000;
+        let size = 910;
         let radius = 50;
         let max = Math.max(...this.shape);
-        let paddingX = 50;
+        let paddingX = 5;
+        let minPaddingY = 5;
+        let biasY = size - minPaddingY - radius;
         let spacingX = 300;
         let spacingY;
         if(max == 1) {
@@ -320,8 +313,6 @@ class Sketch {
         } else {
             spacingY = 40;
         }
-        let minPaddingY = 50;
-        let biasY = size - minPaddingY - radius;
 
         for(let layerIdx = 0; layerIdx < 2; layerIdx++) {
             this.paths.push([]);
@@ -449,24 +440,24 @@ class Sketch {
 }
 
 let config = new Configuration();
-var dataTable;
-var sketch;
-var network;
+let dataTable;
+let sketch;
+let network;
 
-var isTraining = false;
-var isTrained = false;
+let isTraining = false;
+let isTrained = false;
 
 function init() {
     let shape = config.getShape();
-    table = document.getElementById("data-table");
-    dataTable = new DataTable(table, shape[0], shape[2]);
-    for(var i = 0; i < 2; i++) {
-        var input = [];
-        for(var j = 0; j < shape[0]; j++) {
+
+    dataTable = new DataTable(shape[0], shape[2]);
+    for(let i = 0; i < 2; i++) {
+        let input = [];
+        for(let j = 0; j < shape[0]; j++) {
             input.push(Math.random() > 0.5 ? 1 : 0);
         }
-        var output = [];
-        for(var j = 0; j < shape[2]; j++) {
+        let output = [];
+        for(let j = 0; j < shape[2]; j++) {
             output.push(Math.random() > 0.5 ? 1 : 0);
         }
         dataTable.addRow(input, output);

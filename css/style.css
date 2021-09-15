@@ -182,9 +182,10 @@ select {
 }
 
 .column {
+    display: flex;
+    justify-content: center;
     height: 68vh;
     width: 33.33vw;
-    text-align: center;
 }
 
 /* Table */
@@ -354,6 +355,7 @@ table input[type=text]:disabled {
 .sketch {
     height: 50vh;
     width: 50vh;
+    margin-top: 1vh;
     margin-bottom: 4vh;
 }
 
@@ -446,6 +448,16 @@ text {
 
 .side-icon {
     height: 2.5vh;
+}
+
+/* Neuron View */
+
+.neuron-view {
+    height: 40vh;
+    width: 40vh;
+    margin-top: 1vh;
+    border: 1px solid var(--silver);
+    border-radius: 5px;
 }
 
 /* Footer */

@@ -1,6 +1,6 @@
 /*
 FIXME:
-- disable / enable configuration section, add info modal
+- data table resize cells -> fixed width
 
 - validateInput():
 
@@ -23,6 +23,8 @@ class Configuration {
     numberInputs = [];
     epochLabel = document.getElementById("epoch-label");
 
+    disabled = false;
+
     constructor() {
         for(let layerIdx = 0; layerIdx < 3; layerIdx++) {
             this.numberInputs.push(document.getElementById(`number-input-${layerIdx}`));
@@ -34,12 +36,52 @@ class Configuration {
         epochString = epochString.substr(0, 3) + " " + epochString.substr(3, 6);
         this.epochLabel.innerHTML = epochString;
     }
+    disable() {
+        this.disabled = true;
+
+        let numberInputBoxes = document.getElementsByClassName("number-input");
+        for(let i = 0 ; i < numberInputBoxes.length; i++) {
+            numberInputBoxes[i].classList.add("number-input-disabled");
+            let icons = numberInputBoxes[i].querySelectorAll(".item-icon");
+            for(let j = 0; j < icons.length; j++) {
+                icons[j].classList.add("number-input-icon-disabled");
+            }
+        }
+
+        let activationSelects = document.getElementsByClassName("activation-select");
+        for(let i = 0 ; i < activationSelects.length; i++) {
+            activationSelects[i].disabled = true;
+            let icon = activationSelects[i].parentNode.querySelector(".item-icon");
+            icon.classList.add("select-icon-disabled");
+        }
+    }
+    enable() {
+        this.disabled = false;
+        
+        let numberInputBoxes = document.getElementsByClassName("number-input");
+        for(let i = 0 ; i < numberInputBoxes.length; i++) {
+            numberInputBoxes[i].classList.remove("number-input-disabled");
+            let icons = numberInputBoxes[i].querySelectorAll(".item-icon");
+            for(let j = 0; j < icons.length; j++) {
+                icons[j].classList.remove("number-input-icon-disabled");
+            }
+        }
+
+        let activationSelects = document.getElementsByClassName("activation-select");
+        for(let i = 0 ; i < activationSelects.length; i++) {
+            activationSelects[i].disabled = false;
+            let icon = activationSelects[i].parentNode.querySelector(".item-icon");
+            icon.classList.remove("select-icon-disabled");
+        }
+    }
     changeShape(layerIdx, amount) {
-        let newValue = this.shape[layerIdx] + amount;
-        if(newValue > 0 && !(newValue > 5 || (layerIdx == 2 && newValue > 3))) {
-            this.shape[layerIdx] = newValue;
-            this.numberInputs[layerIdx].innerHTML = this.shape[layerIdx];
-            init();
+        if(!this.disabled) {
+            let newValue = this.shape[layerIdx] + amount;
+            if(newValue > 0 && !(newValue > 5 || (layerIdx == 2 && newValue > 3))) {
+                this.shape[layerIdx] = newValue;
+                this.numberInputs[layerIdx].innerHTML = this.shape[layerIdx];
+                init();
+            }
         }
     }
     getShape() {
@@ -220,8 +262,8 @@ class DataTable {
         removeButton.disabled = true;
         let randomizeButton = document.getElementById("randomize-button");
         randomizeButton.disabled = true;
-        let label = document.getElementById("table-label");
-        label.hidden = false;
+        let info = document.getElementById("info");
+        info.classList.remove("hidden");
     }
     enable() {
         for(let i = 0; i < this.rows.length; i++) {
@@ -242,8 +284,8 @@ class DataTable {
         }
         let randomizeButton = document.getElementById("randomize-button");
         randomizeButton.disabled = false;
-        let label = document.getElementById("table-label");
-        label.hidden = true;
+        let info = document.getElementById("info");
+        info.classList.add("hidden");
     }
     getInputs() {
         let inputs = [];
@@ -499,6 +541,7 @@ function train() {
 
 function step() {
     if(!isTrained) {
+        config.disable();
         dataTable.disable();
 
         isTrained = true;
@@ -539,6 +582,7 @@ function reset() {
 
         isTraining = false;
     }
+    config.enable();
     dataTable.enable();
     sketch.disable();
     config.resetEpochCount();

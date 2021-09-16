@@ -208,14 +208,12 @@ select:disabled {
     height: 68vh;
     width: 33.33vw;
     margin-right: 1px;
-    /* background-color: lightcoral; */
 }
 
 /* Table */
 
-.table {
+.table-column {
     width: 20vw;
-    /* background-color: lightblue; */
 }
 
 table {
@@ -245,7 +243,6 @@ td + td {
 
 table input[type=text] {
     height: 3vh;
-    width: 4.1vw;
     border: 1px solid var(--gray-300);
     border-radius: 5px;
     color: var(--black);
@@ -400,7 +397,6 @@ table input[type=text]:disabled {
     width: 25vw;
     margin-top: 1vh;
     margin-bottom: 4vh;
-    /* background-color: lightblue; */
 }
 
 circle {

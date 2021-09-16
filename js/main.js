@@ -1,8 +1,7 @@
 /*
 FIXME:
-- data table resize cells -> fixed width
-
 - validateInput():
+- wrong input: red border & info label
 
 TODO:
 - neuron detail view
@@ -166,9 +165,36 @@ class DataTable {
         let row = this.table.insertRow();
         this.rows.push([]);
         
+        let n = this.inputSize + this.outputSize;
+        let width = "3.3vw";
+        switch(n) {
+            case 2:
+                width = "8.7vw";
+                break;
+            case 3:
+                width = "5.7vw";
+                break;
+            case 4:
+                width = "4.2vw";
+                break;
+            case 5:
+                width = "3.3vw";
+                break;
+            case 6:
+                width = "2.7vw";
+                break;
+            case 7:
+                width = "2.27vw";
+                break;
+            case 8:
+                width = "1.92vw";
+                break;
+        }
+
         for(let i = 0; i < this.inputSize; i++) {
             let inputField = document.createElement("input");
             inputField.setAttribute("type", "text");
+            inputField.style.width = width;
             inputField.setAttribute("value", input[i]);
             inputField.setAttribute("onkeydown", "return validateInput(event)");
             inputField.setAttribute("onfocusout", "return validateValue(event)");
@@ -180,6 +206,7 @@ class DataTable {
         for(let i = 0; i < this.outputSize; i++) {
             let outputField = document.createElement("input");
             outputField.setAttribute("type", "text");
+            outputField.style.width = width;
             outputField.setAttribute("value", output[i]);
             outputField.setAttribute("onkeydown", "return validateInput(event)");
             outputField.setAttribute("onfocusout", "return validateValue(event)");
@@ -344,16 +371,22 @@ class Sketch {
         let biasY = size - minPaddingY - radius;
         let spacingX = 300;
         let spacingY;
-        if(max == 1) {
-            spacingY = 600;
-        } else if(max == 2) {
-            spacingY = 250;
-        } else if(max == 3) {
-            spacingY = 133.33;
-        } else if(max == 4) {
-            spacingY = 75;
-        } else {
-            spacingY = 40;
+        switch(max) {
+            case 1:
+                spacingY = 600;
+                break;
+            case 2:
+                spacingY = 250;
+                break;
+            case 3:
+                spacingY = 133.33;
+                break;
+            case 4:
+                spacingY = 75;
+                break;
+            case 5:
+                spacingY = 40;
+                break;
         }
 
         for(let layerIdx = 0; layerIdx < 2; layerIdx++) {

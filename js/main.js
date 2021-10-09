@@ -1,14 +1,15 @@
 /*
 TODO:
-- javascript access attributes directly
+- favicon
 
 - neuron detail view
 
-- favicon
+- responsive design
+
+
+- javascript access attributes directly
 
 - radio button css
-
-- responsive design
 */
 
 class Configuration {

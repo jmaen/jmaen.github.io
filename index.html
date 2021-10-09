@@ -63,10 +63,10 @@
                             <p class="item-label">Output Layer</p>
                             <div class="select-box">
                                 <select class="activation-select" onchange="config.changeActivation('output', this.value)">
-                                    <option>Linear</option>
-                                    <option selected>Sigmoid</option>
-                                    <option>TanH</option>
-                                    <option>ReLU</option>
+                                    <option value="0">Linear</option>
+                                    <option value="1" selected>Sigmoid</option>
+                                    <option value="2">TanH</option>
+                                    <option value="3">ReLU</option>
                                 </select>
                                 <svg class="item-icon select-icon right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>
                             </div>
@@ -114,6 +114,10 @@
                         <div id="info" class="info hidden">
                             <svg class="info-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
                             <p class="info-label">To edit the shape, activation functions or training data,<br>please reset the network.</p>
+                        </div>
+                        <div id="warning" class="warning hidden">
+                            <svg class="warning-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11 15h2v2h-2v-2zm0-8h2v6h-2V7zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>
+                            <p class="warning-label">Please only use values in the interval [-1, 1]. Output values<br>must be ≥ 0 for output activations Sigmoid and ReLU.</p>
                         </div>
                     </div>
                 </div>

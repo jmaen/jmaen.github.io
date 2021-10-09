@@ -1,10 +1,10 @@
 /*
-FIXME:
-- validateInput():
-- wrong input: red border & info label
-
 TODO:
+- javascript access attributes directly
+
 - neuron detail view
+
+- favicon
 
 - radio button css
 
@@ -129,9 +129,10 @@ class DataTable {
     rows = [];
     radios = [];
 
-    constructor(inputSize, outputSize) {
+    constructor(inputSize, outputSize, restrictOutputValues) {
         this.inputSize = inputSize;
         this.outputSize = outputSize;
+        this.restrictOutputValues = restrictOutputValues;
 
         this.table.innerHTML = "";
 
@@ -193,29 +194,31 @@ class DataTable {
 
         for(let i = 0; i < this.inputSize; i++) {
             let inputField = document.createElement("input");
-            inputField.setAttribute("type", "text");
+            inputField.className = "table-input";
+            inputField.type = "text";
+            inputField.value = input[i];
+            inputField.oninput = function() {validateInput(inputField, false)};
+            inputField.onblur = function() {validateValue(inputField, false)};
             inputField.style.width = width;
-            inputField.setAttribute("value", input[i]);
-            inputField.setAttribute("onkeydown", "return validateInput(event)");
-            inputField.setAttribute("onfocusout", "return validateValue(event)");
             let cell = row.insertCell();
             cell.appendChild(inputField);
             this.rows[index].push(inputField);
         }
     
         for(let i = 0; i < this.outputSize; i++) {
-            let outputField = document.createElement("input");
-            outputField.setAttribute("type", "text");
-            outputField.style.width = width;
-            outputField.setAttribute("value", output[i]);
-            outputField.setAttribute("onkeydown", "return validateInput(event)");
-            outputField.setAttribute("onfocusout", "return validateValue(event)");
+            let inputField = document.createElement("input");
+            inputField.className = "table-input";
+            inputField.type = "text";
+            inputField.value = output[i];
+            inputField.oninput = function() {validateInput(inputField, true)};
+            inputField.onblur = function() {validateValue(inputField, true)};
+            inputField.style.width = width;
             let cell = row.insertCell();
             if(i == 0) {
                 cell.setAttribute("class", "padding-left");
             }
-            cell.appendChild(outputField);
-            this.rows[index].push(outputField);
+            cell.appendChild(inputField);
+            this.rows[index].push(inputField);
         }
     
         let radio = document.createElement("input");
@@ -268,8 +271,10 @@ class DataTable {
     randomizeValues() {
         for(let i = 0; i < this.rows.length; i++) {
             for(let j = 0; j < this.inputSize + this.outputSize; j++) {
-                let value = Math.floor(Math.random() * 1000) / 100;
-                value *= Math.round(Math.random()) ? 1 : -1;
+                let value = Math.round(Math.random() * 100) / 100;
+                if(!(j >= this.inputSize && this.restrictOutputValues)) {
+                    value *= Math.round(Math.random()) ? 1 : -1;
+                }
                 this.rows[i][j].value = value;
             }
         }
@@ -524,8 +529,12 @@ let isTrained = false;
 
 function init() {
     let shape = config.getShape();
-
-    dataTable = new DataTable(shape[0], shape[2]);
+    let outputActivation = config.getOutputActivation().toString();
+    let restrictOutputValues = false;
+    if(outputActivation == "Sigmoid" || outputActivation == "ReLU") {
+        restrictOutputValues = true;
+    }
+    dataTable = new DataTable(shape[0], shape[2], restrictOutputValues);
     for(let i = 0; i < 2; i++) {
         let input = [];
         for(let j = 0; j < shape[0]; j++) {
@@ -553,15 +562,11 @@ function toggle() {
 
         isTraining = true;
 
-        // TODO disable step
-
         train();
     } else {
         iconPath.setAttribute("d", "M8 5v14l11-7z");
 
         isTraining = false;
-
-        // TODO enable step
     }
 }
 
@@ -624,50 +629,36 @@ function reset() {
     isTrained = false;
 }
 
-// TODO move to DataTable class
-function validateInput(event) {
-    // TODO -
-    var key = event.key;
-    var validValues = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "-"];
-    var validActions = ["Backspace", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowUp"];
-    if(!validValues.includes(key) && !validActions.includes(key)) {
-        event.preventDefault();
-    }
-    var value = event.target.value;
-    var cursorIndex = event.target.selectionStart;
-    if(!validActions.includes(key)) {
-        if(value.includes("-")) {
-            if(key == "-" && cursorIndex != 0) {
-                event.preventDefault();
-            }
-        }
-
-        if(value.includes(".")) {
-            if(key == ".") {
-                event.preventDefault();
-            }
-            var decimalIndex = value.indexOf(".");
-            var splitValue = value.split(".");
-            if(cursorIndex <= decimalIndex) {
-                if(splitValue[0].length >= 1 && key != "-") {
-                    event.preventDefault();
-                }
-            } else {
-                if(splitValue[1].length >= 2) {
-                    event.preventDefault();
-                }
-            }
-        } else {
-            if(key != "." && key != "-" && value.length >= 1) {
-                event.preventDefault();
-            }  
-        }
+function validateInput(inputField, isOutput) {
+    let warning = document.getElementById("warning");
+    if(isValid(inputField.value, isOutput)) {
+        inputField.classList.remove("error");
+        warning.classList.add("hidden");
+    } else {
+        inputField.classList.add("error");
+        warning.classList.remove("hidden");   
     }
 }
 
-function validateValue(event) {
-    var value = event.target.value;
-    if(value == "" || value == "." || value == "-") {
-        event.target.value = 0;
+function validateValue(inputField, isOutput) {
+    if(isValid(inputField.value, isOutput)) {
+        inputField.value = Math.floor(parseFloat(inputField.value) * 100) / 100;
+    } else {
+        inputField.value = 0;
     }
+    inputField.classList.remove("error");
+    let warning = document.getElementById("warning");
+    warning.classList.add("hidden");
+}
+
+function isValid(value, isOutput) {
+    if(!/^\-?[0-9]+(?:\.[0-9]+)?$/.test(value)) {
+        return false;
+    } 
+    value = parseFloat(value);
+    if(isNaN(value) || value > 1 || value < -1) {
+        return false
+    }
+    let outputActivation = config.getOutputActivation().toString();
+    return !(isOutput && (outputActivation == "Sigmoid" || outputActivation == "ReLU") && value < 0);
 }

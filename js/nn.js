@@ -60,6 +60,9 @@ class Linear {
     derivative(x) {
         return 1;
     }
+    toString() {
+        return "Linear";
+    }
 }
 
 class Sigmoid {
@@ -69,6 +72,9 @@ class Sigmoid {
     derivative(x) {
         let output = this.output(x);
         return output * (1 - output);
+    }
+    toString() {
+        return "Sigmoid";
     }
 }
 
@@ -82,6 +88,9 @@ class TanH {
         let output = this.output(x);
         return 1 - output * output;
     }
+    toString() {
+        return "TanH";
+    }
 }
 
 class ReLU {
@@ -90,6 +99,9 @@ class ReLU {
     }
     derivative(x) {
         return x > 0 ? 1 : 0;
+    }
+    toString() {
+        return "ReLU";
     }
 }
 

@@ -241,7 +241,7 @@ td + td {
     padding-left: 1vw;
 }
 
-table input[type=text] {
+.table-input {
     height: 3vh;
     border: 1px solid var(--gray-300);
     border-radius: 5px;
@@ -252,12 +252,16 @@ table input[type=text] {
     text-align: center;
 }
 
-table input[type=text]:focus {
+.table-input:focus {
     outline: none;
 }
 
-table input[type=text]:disabled {
+.table-input:disabled {
     background-color: var(--gray-100);
+}
+
+.error {
+    border: 1px solid var(--red);
 }
 
 .table-buttons {
@@ -314,12 +318,8 @@ table input[type=text]:disabled {
     margin-top: 2.5vh;
 }
 
-.hidden {
-    display: none;
-}
-
 .info-icon {
-    height: 1.5rem;
+    height: 1rem;
     fill: var(--black);
 }
 
@@ -327,6 +327,28 @@ table input[type=text]:disabled {
     margin-left: 0.5vw;
     color: var(--black);
     font-size: 0.75rem;
+}
+
+.warning {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2.5vh;
+}
+
+.warning-icon {
+    height: 1rem;
+    fill: var(--red);
+}
+
+.warning-label {
+    margin-left: 0.5vw;
+    color: var(--red);
+    font-size: 0.75rem;
+}
+
+.hidden {
+    display: none;
 }
 
 /* Radio Buttons */

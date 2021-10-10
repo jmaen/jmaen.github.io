@@ -1,15 +1,13 @@
 /*
-TODO:
-- favicon
+FIXME:
+- make table labels responsive
 
+- make table input width accurate
+
+TODO:
 - neuron detail view
 
-- responsive design
-
-
-- javascript access attributes directly
-
-- radio button css
+- main.js: access attributes directly
 */
 
 class Configuration {
@@ -138,11 +136,13 @@ class DataTable {
         this.table.innerHTML = "";
 
         let row = this.table.insertRow();
-        for(let i = 0; i < this.inputSize + this.outputSize; i++) {
+
+        for(let i = 0; i < 2; i++) {
             let header = document.createElement("th");
+            header.colSpan = this.inputSize;
             if(i == 0) {
                 header.innerHTML = "Input";
-            } else if(i == this.inputSize) {
+            } else {
                 header.innerHTML = "Output";
                 header.setAttribute("class", "padding-left");
             }
@@ -168,30 +168,7 @@ class DataTable {
         this.rows.push([]);
         
         let n = this.inputSize + this.outputSize;
-        let width = "3.3vw";
-        switch(n) {
-            case 2:
-                width = "8.7vw";
-                break;
-            case 3:
-                width = "5.7vw";
-                break;
-            case 4:
-                width = "4.2vw";
-                break;
-            case 5:
-                width = "3.3vw";
-                break;
-            case 6:
-                width = "2.7vw";
-                break;
-            case 7:
-                width = "2.27vw";
-                break;
-            case 8:
-                width = "1.92vw";
-                break;
-        }
+        let width = this.calculateWidth(n);
 
         for(let i = 0; i < this.inputSize; i++) {
             let inputField = document.createElement("input");
@@ -279,6 +256,45 @@ class DataTable {
                 this.rows[i][j].value = value;
             }
         }
+    }
+    updateWidths() {
+        let n = this.inputSize + this.outputSize;
+        for(let i = 0; i < this.rows.length; i++) {
+            for(let j = 0; j < n; j++) {
+                this.rows[i][j].style.width = this.calculateWidth(n);
+            }
+        }
+    }
+    calculateWidth(n) {
+        let width = 3.3;
+        switch(n) {
+            case 2:
+                width = 8.7;
+                break;
+            case 3:
+                width = 5.7;
+                break;
+            case 4:
+                width = 4.2;
+                break;
+            case 5:
+                width = 3.3;
+                break;
+            case 6:
+                width = 2.7;
+                break;
+            case 7:
+                width = 2.27;
+                break;
+            case 8:
+                width = 1.92;
+                break;
+        }
+        let mediaQuery = window.matchMedia("(max-width: 800px)");
+        if(mediaQuery.matches) {
+            width *= 2;
+        }
+        return width + "vw";
     }
     disable() {
         for(let i = 0; i < this.rows.length; i++) {
@@ -547,6 +563,10 @@ function init() {
         }
         dataTable.addRow(input, output);
     }
+    var tmpFunction = dataTable.updateWidths;
+    var boundFunction = tmpFunction.bind(dataTable);
+    let mediaQuery = window.matchMedia("(max-width: 800px)");
+    mediaQuery.addEventListener("change", boundFunction);
 
     sketch = new Sketch(shape);
     sketch.draw();

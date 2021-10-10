@@ -26,6 +26,18 @@ html {
     font-size: 16px;
 }
 
+@media screen and (max-width: 992px) {
+    html {
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    html {
+        font-size: 12px;
+    }
+}
+
 body {
     background-color: var(--white);
     font-family: "Poppins";
@@ -37,14 +49,20 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 12vh;
     background-color: var(--primary);
 }
 
 h1 {
+    margin: 1.5rem 0;
     color: var(--white);
     font-size: 2.5rem;
     font-weight: 300;
+}
+
+@media screen and (max-width: 800px) {
+    h1 {
+        font-size: 2rem;
+    }
 }
 
 .bold {
@@ -60,6 +78,12 @@ h2 {
     text-transform: uppercase;
 }
 
+@media screen and (max-width: 800px){
+    .center {
+        text-align: center;
+    }
+}
+
 hr {
     margin: 0 2vw;
     border: 0;
@@ -72,17 +96,44 @@ hr {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 14vh;
-    padding: 1vh 0;
+    margin: 1.5rem 0;
 }
 
-.configuration-column + .configuration-column{
+.configuration-column + * {
     margin-left: 8vw;
+}
+
+.configuration-right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media screen and (max-width: 800px) {
+    .configuration {
+        flex-direction: column;
+    }
+    
+    .configuration-column {
+        margin-left: 0;
+    }
+
+    .configuration-column:nth-of-type(2) {
+        margin-left: 8vw;
+    }
+
+    .configuration-left {
+        margin-bottom: 3rem;
+    }
+
+    .configuration-right {
+        margin-left: 0;
+    }
 }
 
 .item-column {
     display: inline-block;
-    margin-top: 1vh;
+    margin-top: 0.5rem;
 }
 
 .item-column + .item-column {
@@ -90,7 +141,7 @@ hr {
 }
 
 .item-label {
-    margin-bottom: 0.5vh;
+    margin-bottom: 0.25rem;
     color: var(--gray-700);
     font-size: 0.75rem;
 }
@@ -104,11 +155,11 @@ hr {
 }
 
 .left {
-    left: 0.5vw;
+    left: 0.5rem;
 }
 
 .right {
-    right: 0.5vw;
+    right: 0.5rem;
 }
 
 /* Number Inputs */
@@ -118,8 +169,8 @@ hr {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 3vh;
-    width: 5vw;
+    height: 1.75rem;
+    width: 6rem;
     border: 1px solid var(--gray-300);
     border-radius: 5px;
 }
@@ -129,7 +180,6 @@ hr {
 }
 
 .number-input-digit {
-    margin: 0 1vw;
     font-size: 0.8125rem;
     font-weight: 500;
 }
@@ -151,12 +201,12 @@ hr {
 }
 
 select {
-    height: 3vh;
-    width: 5vw;
+    height: 1.75rem;
+    width: 6rem;
     border: 1px solid var(--gray-300);
     border-radius: 5px;
-    padding-left: 0.5vw;
-    -moz-padding-start: calc(0.5vw - 3px);
+    padding-left: 0.5rem;
+    -moz-padding-start: calc(0.5rem - 3px);
     font-family: "Poppins";
     font-size: 0.8125rem;
     font-weight: 500;
@@ -189,7 +239,7 @@ select:disabled {
 .label-box {
     display: flex;
     align-items: center;
-    height: 3vh;
+    height: 1.75rem;
     font-weight: 500;
 }
 
@@ -197,18 +247,30 @@ select:disabled {
 
 .visualization {
     display: flex;
-    align-items: center;
-    height: 74vh;
-    padding: 1vh 0;
+    margin: 1.5rem 0;
 }
 
 .column {
     display: flex;
     justify-content: center;
-    height: 68vh;
     width: 33.33vw;
-    margin-right: 1px;
 }
+
+@media screen and (max-width: 800px) {
+    .visualization {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .column {
+        width: 100vw;
+    }
+
+    .column + .column {
+        margin-top: 3rem;
+    }
+}
+
 
 /* Table */
 
@@ -216,12 +278,18 @@ select:disabled {
     width: 20vw;
 }
 
+@media screen and (max-width: 800px) {
+    .table-column {
+        width: 40vw;
+    }
+}
+
 table {
-    margin-top: 1vh;
+    margin-top: 0.5rem;
 }
 
 th {
-    padding-bottom: 0.4vh;
+    padding-bottom: 0.25rem;
     color: var(--gray-700);
     font-size: 0.75rem;
     font-weight: 400;
@@ -229,20 +297,20 @@ th {
 }
 
 td {
-    padding: 0.1vh 0;
+    padding: 0.125rem 0;
     color: var(--black);
 }
 
 td + td {
-    padding-left: 0.2vw;     
+    padding-left: 0.25rem;     
 }
 
 .padding-left {
-    padding-left: 1vw;
+    padding-left: 1rem;
 }
 
 .table-input {
-    height: 3vh;
+    height: 1.75rem;
     border: 1px solid var(--gray-300);
     border-radius: 5px;
     color: var(--black);
@@ -250,6 +318,8 @@ td + td {
     font-size: 0.825rem;
     font-weight: 500;
     text-align: center;
+    -webkit-appearance: none;
+    -moz-appearance: none;
 }
 
 .table-input:focus {
@@ -258,31 +328,89 @@ td + td {
 
 .table-input:disabled {
     background-color: var(--gray-100);
+    opacity: 1;
 }
 
 .error {
     border: 1px solid var(--red);
 }
 
+/* Radio Buttons */
+
+.radio {
+    display: flex;
+    position: relative;
+}
+
+.radio input {
+    height: 1.5rem;
+    width: 1.5rem;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.radio input:disabled {
+    cursor: default;
+}
+
+.checkmark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 1.5rem;
+    width: 1.5rem;
+    border-radius: 50%;
+    background-color: var(--gray-200);
+    pointer-events: none;
+}
+
+.radio input:hover:enabled ~ .checkmark {
+    background-color: var(--gray-300);
+}
+
+.radio input:checked:enabled ~ .checkmark {
+    background-color: var(--primary);
+}
+
+.checkmark:after {
+    display: none;
+    position: absolute;
+    content: "";
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 0.75rem;
+    width: 0.75rem;
+    border-radius: 50%;
+    background: var(--white);
+}
+
+.radio input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Table buttons */
+
 .table-buttons {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 1vh;
+    margin-top: 0.5rem;
 }
 
 .table-button {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 4vh;
+    height: 2.5rem;
     border: none;
     background-color: var(--gray-200);
     cursor: pointer;
 }
 
 .table-button + .table-button {
-    margin-left: 0.5vw;
+    margin-left: 0.5rem;
 }
 
 .table-button:disabled {
@@ -294,12 +422,12 @@ td + td {
 }
 
 .round {
-    width: 4vh;
+    width: 2.5rem;
     border-radius: 50%;
 }
 
 .capsule {
-    min-width: 5vw;
+    padding: 0 0.5rem;
     border-radius: 5px;
     color: var(--black);
     font-family: "Poppins"; 
@@ -308,8 +436,11 @@ td + td {
 }
 
 .table-button-icon {
-    height: 2.2vh;
+    height: 1.5rem;
 }
+
+/* Table labels */
+/* FIXME icons resize */
 
 .info {
     display: flex;
@@ -351,74 +482,19 @@ td + td {
     display: none;
 }
 
-/* Radio Buttons */
-
-.radio {
-    display: block;
-    position: relative;
-    margin-bottom: 20px;
-    padding-left: 10px;
-}
-
-.radio input {
-    position: absolute;
-    height: 25px;
-    width: 25px;
-    top: -5px;
-    left: -7px;
-    opacity: 0;
-    cursor: pointer;
-}
-
-.radio input:disabled {
-    cursor: default;
-}
-
-.checkmark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 20px;
-    width: 20px;
-    border-radius: 50%;
-    background-color: var(--gray-200);
-    pointer-events: none;
-}
-
-.radio input:hover:enabled ~ .checkmark {
-    background-color: var(--gray-300);
-}
-
-.radio input:checked:enabled ~ .checkmark {
-    background-color: var(--primary);
-}
-
-.checkmark:after {
-    display: none;
-    position: absolute;
-    content: "";
-}
-
-.radio .checkmark:after {
-    top: 5px;
-    left: 5px;
-    height: 10px;
-    width: 10px;
-    border-radius: 50%;
-    background: var(--white);
-}
-
-.radio input:checked ~ .checkmark:after {
-    display: block;
-}
-
-/* SVG */
+/* Sketch */
 
 .sketch {
     height: 25vw;
     width: 25vw;
-    margin-top: 1vh;
-    margin-bottom: 4vh;
+    margin-top: 1rem;
+}
+
+@media screen and (max-width: 800px) {
+    .sketch {
+        width: 50vw;
+        height: 50vw;
+    }
 }
 
 circle {
@@ -457,20 +533,39 @@ text {
     stroke: var(--dark-red);
 }
 
+/* Neuron View */
+
+.neuron-view {
+    height: 20vw;
+    width: 20vw;
+    margin-top: 1rem;
+    border: 1px solid var(--gray-300);
+    border-radius: 5px;
+}
+
+@media screen and (max-width: 800px) {
+    .neuron-view {
+        width: 40vw;
+        height: 40vw;
+    }
+}
+
 /* Controls */
 
 .controls {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
 }
 
 .center-button {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 9vh;
-    width: 9vh;
+    height: 5.5rem;
+    width: 5.5rem;
     border: none;
     border-radius: 50%;
     background-color: var(--primary);
@@ -486,9 +581,9 @@ text {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 5vh;
-    width: 5vh;
-    margin: 0 0.5vw;
+    height: 3rem;
+    width: 3rem;
+    margin: 0 0.5rem;
     border: none;
     border-radius: 50%;
     background-color: var(--gray-200);
@@ -504,42 +599,12 @@ text {
 }
 
 .center-icon {
-    height: 6vh;
+    height: 3.5rem;
     fill: var(--white);
 }
 
 .side-icon {
-    height: 2.5vh;
-}
-
-/* Neuron View */
-
-.neuron-view {
-    height: 20vw;
-    width: 20vw;
-    margin-top: 1vh;
-    border: 1px solid var(--gray-300);
-    border-radius: 5px;
-}
-
-/* Footer */
-
-footer {
-    padding: 3vh 0;
-    background-color: var(--primary);
-    text-align: center;
-}
-
-.socials-icon {
-    height: 5vh;
-    padding: 1vh 1vw;
-    fill: var(--white);
-}
-
-.copyright {
-    padding: 1vh 0;
-    color: var(--white);
-    font-size: 0.75rem;
+    height: 1.5rem;
 }
 
 /* Modal */
@@ -561,10 +626,16 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 30vw;
-    height: 20vh;
+    padding: 2rem 1rem;
     border-radius: 5px;
     background-color: var(--white);
+}
+
+@media screen and (max-width: 800px) {
+    .modal-box {
+        width: 25rem;
+        height: 12rem;
+    }
 }
 
 .modal-header {
@@ -573,7 +644,7 @@ footer {
 }
 
 .modal-text {
-    margin: 2vh 0; 
+    margin: 1rem 0; 
 }
 
 .modal-buttons {
@@ -581,9 +652,8 @@ footer {
 }
 
 .modal-button {
-    height: 5vh;
-    width: 5vw;
-    margin: 0 0.5vw;
+    margin: 0 1rem;
+    padding: 0.75rem 1.25rem;
     border: none;
     border-radius: 5px;
     font-family: "Poppins";

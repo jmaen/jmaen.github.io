@@ -1,6 +1,5 @@
 {
-    "name": "",
-    "short_name": "",
+    "name": "A Neural Network Visualized",
     "icons": [
         {
             "src": "android-chrome-192x192.png",
@@ -13,7 +12,7 @@
             "type": "image/png"
         }
     ],
-    "theme_color": "#ffffff",
+    "theme_color": "#1D3557",
     "background_color": "#ffffff",
     "display": "standalone"
 }

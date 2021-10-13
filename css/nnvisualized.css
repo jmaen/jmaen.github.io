@@ -274,12 +274,12 @@ select:disabled {
 /* Table */
 
 .table-column {
-    width: 20vw;
+    width: 25vw;
 }
 
 @media screen and (max-width: 800px) {
     .table-column {
-        width: 40vw;
+        width: 50vw;
     }
 }
 
@@ -535,8 +535,8 @@ text {
 /* Neuron View */
 
 .neuron-view {
-    height: 20vw;
-    width: 20vw;
+    height: 25vw;
+    width: 25vw;
     margin-top: 1rem;
     border: 1px solid var(--gray-300);
     border-radius: 5px;
@@ -544,8 +544,8 @@ text {
 
 @media screen and (max-width: 800px) {
     .neuron-view {
-        width: 40vw;
-        height: 40vw;
+        width: 50vw;
+        height: 50vw;
     }
 }
 

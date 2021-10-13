@@ -1,15 +1,3 @@
-/*
-FIXME:
-- make table labels responsive
-
-- make table input width accurate
-
-TODO:
-- neuron detail view
-
-- main.js: access attributes directly
-*/
-
 class Configuration {
     activations = [new Linear(), new Sigmoid(), new TanH(), new ReLU()];
     shape = [3, 2, 2];
@@ -143,7 +131,7 @@ class DataTable {
             if(i == 0) {
                 header.innerHTML = "Input";
             } else {
-                header.innerHTML = "Output";
+                header.innerHTML = "Target";
                 header.setAttribute("class", "padding-left");
             }
             row.appendChild(header);
@@ -266,34 +254,20 @@ class DataTable {
         }
     }
     calculateWidth(n) {
-        let width = 3.3;
-        switch(n) {
-            case 2:
-                width = 8.7;
-                break;
-            case 3:
-                width = 5.7;
-                break;
-            case 4:
-                width = 4.2;
-                break;
-            case 5:
-                width = 3.3;
-                break;
-            case 6:
-                width = 2.7;
-                break;
-            case 7:
-                width = 2.27;
-                break;
-            case 8:
-                width = 1.92;
-                break;
-        }
+        let width = 0;
+        let padding = pixelsToViewportWidth(remToPixels(0.25));
+        let gap = pixelsToViewportWidth(remToPixels(1));
+        let radio = pixelsToViewportWidth(remToPixels(1.5));
+        let border = pixelsToViewportWidth(1);
+        let tolerance = pixelsToViewportWidth(4);
+
         let mediaQuery = window.matchMedia("(max-width: 800px)");
         if(mediaQuery.matches) {
-            width *= 2;
+            width = (50 - 2 * n * border - (n - 1) * padding - gap - radio - tolerance) / n;
+        } else {
+            width = (25 - 2 * n * border - (n - 1) * padding - gap - radio - tolerance) / n;
         }
+
         return width + "vw";
     }
     disable() {
@@ -565,8 +539,7 @@ function init() {
     }
     var tmpFunction = dataTable.updateWidths;
     var boundFunction = tmpFunction.bind(dataTable);
-    let mediaQuery = window.matchMedia("(max-width: 800px)");
-    mediaQuery.addEventListener("change", boundFunction);
+    window.addEventListener("resize", boundFunction);
 
     sketch = new Sketch(shape);
     sketch.draw();

@@ -22,7 +22,7 @@ $.getJSON("data/projects.json", function(projectData) {
         let info = document.createElement("div");
         info.className = "project-info";
         let headline = document.createElement("a");
-        headline.href = `${projectName}.html`;
+        headline.href = projectName;
         headline.innerHTML = `/${projectName}`;
         let description = document.createElement("p");
         description.innerHTML = projectDescription;

@@ -1,0 +1,237 @@
+:root {
+    --background: #FFFFFF;
+    --primary: #000000;
+    --secondary: #5a5a5a;
+}
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+}
+
+@media screen and (max-width: 1024px) {
+    html {
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    html {
+        font-size: 12px;
+    }
+}
+
+body {
+    background-color: var(--background);
+    font-family: "Poppins", sans-serif;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Headline */
+
+.headline {
+    margin-bottom: 15vh;
+}
+
+h1 {
+    position: relative;
+    margin: 0 2vw;
+    margin-bottom: 1.25rem;
+    color: var(--primary);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 4rem;
+    text-align: center;
+}
+
+@keyframes typing {
+    to {
+      left: 100%;
+    }
+}
+
+h1::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: var(--background);
+  animation: typing 1.5s steps(29) 0.5s forwards;
+}
+
+@keyframes fade-in {
+    to {
+        opacity: 1;
+    }
+}
+
+h2 {
+    margin: 0 2vw;
+    color: var(--secondary);
+    font-size: 1.75rem;
+    font-weight: 500;
+    text-align: center;
+    opacity: 0;
+    animation: fade-in 2s 1.5s forwards;
+}
+
+@media screen and (max-width: 1200px) {
+    h1 {
+        font-size: 3.5rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    h1 {
+        opacity: 0;
+        animation: fade-in 2s forwards;
+    }
+
+    h1::before {
+        display: none;
+    }
+
+    h2 {
+        animation: fade-in 2s forwards;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    h1 {
+        font-size: 3rem;
+    }
+
+    h2 {
+        font-size: 1.25rem;
+    }
+}
+
+/* Projects */
+
+.project-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    animation: fade-in 2s 2s forwards;
+}
+
+.project-row + .project-row {
+    margin-top: 1rem;
+}
+
+.project {
+    display: flex;
+    align-items: center;
+    width: 22rem;
+    padding: 0.5rem;
+    border: 1px solid #D0D0D0;
+    border-radius: 5px;
+}
+
+.project + .project {
+    margin-left: 2rem;
+}
+
+@media screen and (max-width: 800px) {
+    .project-row {
+        flex-direction: column;
+        animation: fade-in 2s 0.5s forwards;
+    }
+
+    .project + .project {
+        margin-top: 1rem;
+        margin-left: 0;
+    }
+}
+
+.project-thumbnail {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 4rem;
+    width: 4rem;
+    border-radius: 5px;
+    background-color: var(--secondary);
+}
+
+.project-thumbnail img {
+    width: 2rem;
+    height: 2rem;
+    filter: brightness(0) invert(1);
+    transition: transform 0.3s ease-in-out;
+}
+
+.project:hover .project-thumbnail img {
+    transform: scale(1.25);
+}
+
+.project-info {
+    margin-left: 1rem;
+}
+
+.project-info a {
+    color: var(--primary);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.project-info a:hover {
+    text-decoration: underline;
+}
+
+.project-info p {
+    color: var(--secondary);
+}
+
+/* Socials */
+
+.socials {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    margin: 1rem;
+}
+
+.socials div {
+    display: flex;
+}
+
+.socials div + div {
+    margin-top: 1rem;
+}
+
+.socials svg {
+    height: 1.5rem;
+    margin-right: 0.5rem;
+    fill: var(--primary);
+}
+
+.socials a {
+    color: var(--primary);
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.socials a:hover {
+    text-decoration: underline;
+}

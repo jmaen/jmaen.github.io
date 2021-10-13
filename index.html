@@ -1,169 +1,35 @@
 <!DOCTYPE html>
-
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>A Neural Network Visualized</title>
-        <link rel="icon" type="image/svg+xml" href="/icons/favicon.svg">
-        <link rel="icon" sizes="any" href="/icons/favicon.ico">
-        <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
-        <link rel="manifest" href="/icons/site.webmanifest">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:100,300,400,500,700">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-        <link rel="stylesheet" type="text/css" href="css/style.css">
-    </head>
-    <body onload="init()">
-        <header>
-            <h1>A <span class="bold">Neural Network</span> Visualized</h1>
-        </header>
-
-        <main>
-            <div class="configuration">
-                <div class="configuration-column configuration-left">
-                    <h2 class="center">Network Shape</h2>
-                    <div class="item-columns">
-                        <div class="item-column">
-                            <p class="item-label">Input Neurons</p>
-                            <div class="number-input">
-                                <svg class="item-icon number-input-icon left" onclick="config.changeShape(0, -1)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Remove input neuron</title><path d="M19 13H5v-2h14v2z"/></svg>
-                                <p id="number-input-0" class="number-input-digit"></p>
-                                <svg class="item-icon number-input-icon right" onclick="config.changeShape(0, 1)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Add input neuron</title><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-                            </div>
-                        </div>
-                        <div class="item-column">
-                            <p class="item-label">Hidden Neurons</p>
-                            <div class="number-input">
-                                <svg class="item-icon number-input-icon left" onclick="config.changeShape(1, -1)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Remove hidden neuron</title><path d="M19 13H5v-2h14v2z"/></svg>
-                                <p id="number-input-1" class="number-input-digit"></p>
-                                <svg class="item-icon number-input-icon right" onclick="config.changeShape(1, 1)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Add hidden neuron</title><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-                            </div>
-                        </div>
-                        <div class="item-column">
-                            <p class="item-label">Output Neurons</p>
-                            <div class="number-input">
-                                <svg class="item-icon number-input-icon left" onclick="config.changeShape(2, -1)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Remove output neuron</title><path d="M19 13H5v-2h14v2z"/></svg>
-                                <p id="number-input-2" class="number-input-digit"></p>
-                                <svg class="item-icon number-input-icon right" onclick="config.changeShape(2, 1)" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Add output neuron</title><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="configuration-right">
-                    <div class="configuration-column">
-                        <h2>Activation Functions</h2>
-                        <div class="item-columns">
-                            <div class="item-column">
-                                <p class="item-label">Hidden Layer</p>
-                                <div class="select-box">
-                                    <select class="activation-select" onchange="config.changeActivation('hidden', this.value)">
-                                        <option value="0">Linear</option>
-                                        <option value="1">Sigmoid</option>
-                                        <option value="2" selected>TanH</option>
-                                        <option value="3">ReLU</option>
-                                    </select>
-                                    <svg class="item-icon select-icon right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>
-                                </div>
-                            </div>
-                            <div class="item-column">
-                                <p class="item-label">Output Layer</p>
-                                <div class="select-box">
-                                    <select class="activation-select" onchange="config.changeActivation('output', this.value)">
-                                        <option value="0">Linear</option>
-                                        <option value="1" selected>Sigmoid</option>
-                                        <option value="2">TanH</option>
-                                        <option value="3">ReLU</option>
-                                    </select>
-                                    <svg class="item-icon select-icon right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="configuration-column">
-                        <h2>Learning Settings</h2>
-                        <div class="item-columns">
-                            <div class="item-column">
-                                <p class="item-label">Learning Rate</p>
-                                <div class="select-box">
-                                    <select onchange="config.changeLearningRate(this.value)">
-                                        <option>0.001</option>
-                                        <option>0.003</option>
-                                        <option selected>0.01</option>
-                                        <option>0.03</option>
-                                        <option>0.1</option>
-                                        <option>0.3</option>
-                                        <option>1</option>
-                                    </select>
-                                    <svg class="item-icon select-icon right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>
-                                </div>
-                            </div>
-                            <div class="item-column">
-                                <p class="item-label">Current Epoch</p>
-                                <div class="label-box">
-                                    <p id="epoch-label"></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jannik Mänzer</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+    <main>
+        <div>
+            <div class="headline">
+                <h1>Hello, welcome to my website!</h1>
+                <h2>Here you can find a collection of some of my projects.</h2>
             </div>
-            <hr>
-            <div class="visualization">
-                <div class="column">
-                    <div class="table-column">
-                        <h2 class="center">Training Data</h2>
-                        <table id="data-table"></table>
-                        <div class="table-buttons">
-                            <button id="add-button" class="table-button round" title="Add data row" onclick="dataTable.addRow()"><svg class="table-button-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></button>
-                            <button id="remove-button" class="table-button round" title="Remove data row" disabled="true" onclick="dataTable.removeRow()"><svg class="table-button-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 13H5v-2h14v2z"/></svg></button>
-                            <button id="randomize-button" class="table-button capsule" title="Randomize data" onclick="dataTable.randomizeValues()">RANDOMIZE</button>
-                        </div>
-                        <div id="info" class="info hidden">
-                            <svg class="info-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
-                            <p class="info-label">To edit the shape, activation functions or training data,<br>please reset the network.</p>
-                        </div>
-                        <div id="warning" class="warning hidden">
-                            <svg class="warning-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11 15h2v2h-2v-2zm0-8h2v6h-2V7zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>
-                            <p class="warning-label">Please only use values in the interval [-1, 1]. Output values<br>must be ≥ 0 for output activations Sigmoid and ReLU.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="column">
-                    <div>
-                        <h2 class="center">Network</h2>
-                        <svg id="sketch" class="sketch" viewBox="0 0 910 910"></svg>
-                    </div>
-                </div>
-                <div class="column">
-                    <div>
-                        <h2 class="center">Neuron View</h2>
-                        <div class="neuron-view"></div>
-                    </div>
-                </div>
+            <div id="projects" class="projects"></div>
+        </div>
+        <div class="socials">
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                <a href="https://github.com/jmaen">/jmaen</a>
             </div>
-            <div class="controls">
-                <button id="reset-button" class="side-button" title="Reset network" onclick="showResetModal()"><svg class="side-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,5V1L7,6l5,5V7c3.31,0,6,2.69,6,6s-2.69,6-6,6s-6-2.69-6-6H4c0,4.42,3.58,8,8,8s8-3.58,8-8S16.42,5,12,5z"/></svg></button>
-                <button id="train-button" class="center-button" title="Train / Pause" onclick="toggle()"><svg class="center-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path id="center-icon-path" d="M8 5v14l11-7z"/></svg></button>
-                <button id="step-button" class="side-button" title="Step" onclick="step()"><svg class="side-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg></button>
-            </div>
-        </main>
-
-        <div id="modal" class="modal">
-            <div class="modal-box">
-                <div>
-                    <p class="modal-header">Reset the network?</p>
-                    <p class="modal-text">Do you want to reset the network? All training progress will be lost.</p>
-                    <div class="modal-buttons">
-                        <button class="modal-button red" onclick="hideResetModal(); reset()">Reset</button>
-                        <button class="modal-button gray" onclick="hideResetModal()">Cancel</button>
-                    </div>
-                </div>
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg>
+                <a href="https://twitter.com/jannikmaenzer">/jannikmaenzer</a>
             </div>
         </div>
-
-        <script type=text/javascript src="js/jquery.js"></script>
-        <script type=text/javascript src="js/nn.js"></script>
-        <script type=text/javascript src="js/main.js"></script>
-    </body>
+    </main>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="js/index.js"></script>
+</body>
 </html>

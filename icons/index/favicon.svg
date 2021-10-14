@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000">
+    <style>
+        path {
+            fill: none;
+            stroke: #000000;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            stroke-width: 85px;
+        }
+        @media (prefers-color-scheme: dark) {
+            path {
+                stroke: #FFFFFF;
+            }
+        }
+    </style>
+    <path d="M804.7,66.47c-13.45,4.77-46,34.58-56.69,47.22m-56.4,94.59c-37.1,73.92-79,208.76-145.72,359.77C434.16,821,238.08,962.29,160.59,928.61,113,907.93,122.37,777.21,286.43,643c203.91-166.77,519.74-141.79,578-307.87"/>
+</svg>

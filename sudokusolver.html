@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Sudoku Solver</title>
+        <link rel="icon" type="image/svg+xml" href="icons/sudokusolver/favicon.svg">
+        <link rel="icon" sizes="any" href="icons/index/favicon.ico">
+        <link rel="apple-touch-icon" sizes="180x180" href="icons/index/apple-touch-icon.png">
+        <link rel="manifest" href="icons/index/site.webmanifest">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@700&display=swap">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
+        <link rel="stylesheet" href="css/sudokusolver.css">
+    </head>
+    <body onload="init()">
+        <header>
+            <h1>Sudoku Solver</h1>
+        </header>
+        <main>
+            <div id="grid" class="grid"></div>
+            <div class="main-buttons">
+                <div class="main-button" onclick="clearGrid()">
+                    <p>Clear</p>
+                </div>
+                <div class="main-button" onclick="solveGrid()">
+                    <p>Solve</p>
+                </div>
+            </div>
+            <div id="error" class="error hidden">
+                <svg class="warning-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11 15h2v2h-2v-2zm0-8h2v6h-2V7zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>
+                <p>This Sudoku is not valid! Make sure your input fulfils the constraints of the Sudoku.</p>
+            </div>
+        </main>
+        <script type=text/javascript src="js/sudokusolver.js"></script>
+    </body>
+</html>

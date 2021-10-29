@@ -1,7 +1,12 @@
 [
     {
         "name": "nnvisualized",
-        "description": "A Neural Network Visualized",
+        "description": "A neural network visualized",
         "theme": "#1D3557"
+    },
+    {
+        "name": "sudokusolver",
+        "description": "A simple tool to solve sudokus",
+        "theme": "#533B4D"
     }
 ]

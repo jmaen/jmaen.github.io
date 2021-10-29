@@ -1,0 +1,148 @@
+:root {
+    /* Chess: --primary: #231F20; */
+    --primary: #533B4D;
+    --white: #FFFFFF;
+    --light-gray: #D0D0D0;
+    --dark-gray: #919191;
+}
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+}
+
+@media screen and (max-width: 992px) {
+    html {
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    html {
+        font-size: 12px;
+    }
+}
+
+body {
+    background-color: var(--white);
+    font-family: "Poppins";
+}
+
+/* Header */
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--primary);
+}
+
+h1 {
+    margin: 1.5rem 0;
+    color: var(--white);
+    font-size: 2.5rem;
+    font-weight: 500;
+}
+
+/* Main */
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin-top: 7rem;
+    border: 2px solid var(--light-gray);
+    border-radius: 5px;
+}
+
+.box {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    border: 1px solid var(--light-gray);
+}
+
+.cell {
+    width: 1.5em;
+    height: 1.5em;
+    border: 1px solid var(--light-gray);
+    border-radius: 0;
+    color: var(--dark-gray);
+    font-family: "Poppins";
+    font-size: 2rem;
+    text-align: center;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    outline: none;
+}
+
+.cell:focus {
+    border: 2px solid var(--dark-gray);
+}
+
+.user-input {
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.main-buttons {
+    display: flex;
+}
+
+.main-button {
+    margin-top: 2rem;
+    padding: 0.75rem 2rem;
+    background-color: var(--primary);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.main-button + .main-button {
+    margin-left: 1rem;
+}
+
+.main-button p {
+    margin-right: -0.25rem;
+    color: var(--white);
+    font-family: "Poppins";
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: 0.25rem;
+    text-align: right;
+}
+
+.error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem 5vw;
+}
+
+.error p {
+    margin-left: 0.5rem;
+    color: #E63946;
+    font-weight: 600;
+    /* text-align: center; */
+}
+
+.error svg{
+    height: 1.5rem;
+    fill: #E63946;
+}
+
+.hidden {
+    display: none;
+}

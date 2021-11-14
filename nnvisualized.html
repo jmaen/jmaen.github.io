@@ -136,8 +136,23 @@
                 </div>
                 <div class="column">
                     <div>
-                        <h2 class="center">Neuron View</h2>
-                        <div class="neuron-view"></div>
+                        <h2 class="center">How it works</h2>
+                        <div class="about">
+                            <p class="about-section">
+                                The neural network consists of three layers, one input, one hidden and one output layer. Each of these layers contains multiple neurons.
+                                All neurons of in a layer are connected to all neurons in the following layer. Every connection has a weight that determines its importance.
+                                You can find a schematic sketch of a neuron <a class="about-link" href="https://github.com/jmaen/nnvisualized-graphics/blob/master/neuron.png">here</a>.
+                            </p>
+                            <p class="about-section">
+                                A hidden or output neuron sums up all incoming connections and applies an activation function to the sum in order to make the network non-linear.
+                                There are many different activation functions but you can find a plot with some of the most prominent ones <a class="about-link" href="https://github.com/jmaen/nnvisualized-graphics/blob/master/activations.png">here</a>.
+                            </p>
+                            <p class="about-section">
+                                In order to learn, the network has to be trained on specific data. 
+                                It recieves input and target values and then computes the error, meaning the difference between the actual output and the target values.
+                                After that the network adjusts its weights in order to minimize this error. The algorithm used to compute the new weights is called backpropagation.
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -159,6 +174,14 @@
                 </div>
             </div>
         </div>
+        <script>
+            MathJax = {
+              tex: {
+                inlineMath: [['$', '$']]
+              }
+            };
+        </script>
+        <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
         <script type=text/javascript src="js/nn.js"></script>
         <script type=text/javascript src="js/utils.js"></script>
         <script type=text/javascript src="js/nnvisualized.js"></script>

@@ -532,21 +532,27 @@ text {
     stroke: var(--dark-red);
 }
 
-/* Neuron View */
+/* About */
 
-.neuron-view {
-    height: 25vw;
+.about {
     width: 25vw;
-    margin-top: 1rem;
-    border: 1px solid var(--gray-300);
-    border-radius: 5px;
+    margin-top: 0.5rem;
 }
 
 @media screen and (max-width: 800px) {
-    .neuron-view {
+    .about {
         width: 50vw;
-        height: 50vw;
     }
+}
+
+.about-section {
+    margin-top: 1rem;
+    font-size: 0.9375rem;
+}
+
+.about-link {
+    color: var(--primary);
+    font-weight: 500;
 }
 
 /* Controls */

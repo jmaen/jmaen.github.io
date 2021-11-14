@@ -206,6 +206,7 @@ select {
     border-radius: 5px;
     padding-left: 0.5rem;
     -moz-padding-start: calc(0.5rem - 3px);
+    background-color: var(--white);
     font-family: "Poppins";
     font-size: 0.8125rem;
     font-weight: 500;
@@ -556,6 +557,7 @@ text {
 }
 
 /* Controls */
+/* TODO make controls float on mobile */
 
 .controls {
     display: flex;

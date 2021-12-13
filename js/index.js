@@ -13,6 +13,7 @@ $.getJSON("data/projects.json", function(projectData) {
 
         let project = document.createElement("div");
         project.className = "project";
+        project.onclick = function() {window.open(projectName, "_self")}
         let thumbnail = document.createElement("div");
         thumbnail.className = "project-thumbnail";
         thumbnail.style.backgroundColor = projectTheme;
@@ -22,7 +23,6 @@ $.getJSON("data/projects.json", function(projectData) {
         let info = document.createElement("div");
         info.className = "project-info";
         let headline = document.createElement("a");
-        headline.href = projectName;
         headline.innerHTML = `/${projectName}`;
         let description = document.createElement("p");
         description.innerHTML = projectDescription;

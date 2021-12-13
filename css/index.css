@@ -2,6 +2,7 @@
     --background: #FFFFFF;
     --primary: #000000;
     --secondary: #5a5a5a;
+    --gray: #D0D0D0;
 }
 
 *,
@@ -143,8 +144,9 @@ h2 {
     align-items: center;
     width: 22rem;
     padding: 0.5rem;
-    border: 1px solid #D0D0D0;
+    border: 1px solid var(--gray);
     border-radius: 5px;
+    cursor: pointer;
 }
 
 .project + .project {
@@ -192,10 +194,6 @@ h2 {
     color: var(--primary);
     font-weight: 600;
     text-decoration: none;
-}
-
-.project-info a:hover {
-    text-decoration: underline;
 }
 
 .project-info p {

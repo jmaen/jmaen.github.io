@@ -1,0 +1,45 @@
+:root {
+  --background: #FFFFFF;
+  --primary: #000000;
+  --secondary: #5A5A5A;
+  --gray: #D0D0D0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+margin: 0;
+  padding: 0;
+font: inherit;
+}
+
+html {
+  font-size: 16px;
+}
+
+@media screen and (max-width: 1024px) {
+  html {
+      font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  html {
+      font-size: 13px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  html {
+      font-size: 12px;
+  }
+}
+
+body {
+  background-color: var(--background);
+  font-family: "Poppins", sans-serif;
+}

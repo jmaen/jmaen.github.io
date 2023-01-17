@@ -15,10 +15,5 @@
         "description": "A tool that automates project initialization",
         "theme": "#A1C8CB",
         "link": "https://github.com/jmaen/pronit#readme"
-    },
-    {
-        "name": "notepdf",
-        "description": "A pdf note template generator",
-        "theme": "#C98474"
     }
 ]

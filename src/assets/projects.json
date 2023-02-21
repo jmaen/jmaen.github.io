@@ -7,7 +7,7 @@
     {
         "name": "ktracer",
         "description": "A basic path tracer written in Kotlin",
-        "theme": "#914F66",
+        "theme": "#C8A2C8",
         "link": "https://github.com/jmaen/ktracer#readme"
     },
     {
@@ -15,5 +15,11 @@
         "description": "A tool that automates project initialization",
         "theme": "#A1C8CB",
         "link": "https://github.com/jmaen/pronit#readme"
+    },
+    {
+        "name": "rasplicate",
+        "description": "A tool that turns your Raspberry Pi into an automatic backup server",
+        "theme": "#914F66",
+        "link": "https://github.com/jmaen/rasplicate#readme"
     }
 ]

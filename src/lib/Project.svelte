@@ -31,7 +31,7 @@
         width: 22rem;
         height: 6rem;
         padding: 0.5rem;
-        border: 1px solid var(--gray);
+        border: 1px solid var(--border);
         border-radius: 5px;
         background-color: transparent;
         text-align: left;

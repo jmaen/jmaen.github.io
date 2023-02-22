@@ -2,7 +2,7 @@
     {
         "name": "nnvisualized",
         "description": "A neural network visualized directly in the browser",
-        "theme": "#1D3557"
+        "theme": "#2f5b99"
     },
     {
         "name": "ktracer",

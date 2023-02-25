@@ -1,5 +1,5 @@
 #A1C8CB (pronit)
-#1D3557 (nnvisualized) #2f5b99
+#2f5b99 (nnvisualized)
 #C8A2C8 (ktracer)
 #914F66 (rasplicate)
 #C98474 (notepdf)

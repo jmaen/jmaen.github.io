@@ -38,6 +38,10 @@
         cursor: pointer;
     }
 
+    .project:hover {
+        box-shadow: 0 0 5px var(--border);
+    }
+
     .project-thumbnail {
         display: flex;
         justify-content: center;

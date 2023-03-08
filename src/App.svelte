@@ -100,7 +100,7 @@
     animation: fade-in 2s 1.5s forwards;
   }
 
-  @media screen and (max-width: 1200px) {
+  @media screen and (max-width: 1024px) {
     h1 {
       font-size: 3.5rem;
     }

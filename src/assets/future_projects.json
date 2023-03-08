@@ -1,0 +1,40 @@
+[
+    {
+        "name": "nnvisualized",
+        "description": "A neural network visualized directly in the browser",
+        "theme": "#2f5b99"
+    },
+    {
+        "name": "ktracer",
+        "description": "A basic path tracer written in Kotlin",
+        "theme": "#C8A2C8",
+        "link": "https://github.com/jmaen/ktracer#readme"
+    },
+    {
+        "name": "bond",
+        "description": "An agent-based modeling and visualization framework in Python",
+        "theme": "#4F5768"
+    },
+    {
+        "name": "konv",
+        "description": "A convolutional neural network from scratch in Kotlin",
+        "theme": "#F2D388"
+    },
+    {
+        "name": "pronit",
+        "description": "A tool that automates project initialization",
+        "theme": "#A1C8CB",
+        "link": "https://github.com/jmaen/pronit#readme"
+    },
+    {
+        "name": "rasplicate",
+        "description": "A tool that turns your Raspberry Pi into an automatic backup server",
+        "theme": "#914F66",
+        "link": "https://github.com/jmaen/rasplicate#readme"
+    },
+    {
+        "name": "notepdf",
+        "description": "A PDF generator for colorful note templates",
+        "theme": "#C98474"
+    }
+]

@@ -13,12 +13,13 @@
     {
         "name": "bond",
         "description": "An agent-based modeling and visualization framework in Python",
-        "theme": "#4F5768"
+        "theme": "#B1C992"
     },
     {
-        "name": "konv",
-        "description": "A convolutional neural network from scratch in Kotlin",
-        "theme": "#F2D388"
+        "name": "snapper",
+        "description": "Screenshot-based snapshot testing for Java",
+        "theme": "#F2D388",
+        "link": "https://github.com/jmaen/snapper#readme"
     },
     {
         "name": "pronit",
@@ -27,14 +28,20 @@
         "link": "https://github.com/jmaen/pronit#readme"
     },
     {
+        "name": "notepdf",
+        "description": "A PDF generator for colorful note templates",
+        "theme": "#C98474"
+    },
+    {
+        "name": "dartscore",
+        "description": "Calculates expected scores for different aiming locations",
+        "theme": "#4F5768",
+        "link": "https://github.com/jmaen/rasplicate#readme"
+    },
+    {
         "name": "rasplicate",
         "description": "A tool that turns your Raspberry Pi into an automatic backup server",
         "theme": "#914F66",
         "link": "https://github.com/jmaen/rasplicate#readme"
-    },
-    {
-        "name": "notepdf",
-        "description": "A PDF generator for colorful note templates",
-        "theme": "#C98474"
     }
 ]

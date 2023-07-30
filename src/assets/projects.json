@@ -11,20 +11,26 @@
         "link": "https://github.com/jmaen/ktracer#readme"
     },
     {
+        "name": "snapper",
+        "description": "JUnit extension for Selenium-based visual regression testing in Java",
+        "theme": "#F2D388",
+        "link": "https://github.com/jmaen/snapper#readme"
+    },
+    {
         "name": "pronit",
         "description": "A tool that automates project initialization",
         "theme": "#A1C8CB",
         "link": "https://github.com/jmaen/pronit#readme"
     },
     {
+        "name": "notepdf",
+        "description": "A PDF generator for colorful note templates",
+        "theme": "#C98474"
+    },
+    {
         "name": "rasplicate",
         "description": "A tool that turns your Raspberry Pi into an automatic backup server",
         "theme": "#914F66",
         "link": "https://github.com/jmaen/rasplicate#readme"
-    },
-    {
-        "name": "notepdf",
-        "description": "A PDF generator for colorful note templates",
-        "theme": "#C98474"
     }
 ]

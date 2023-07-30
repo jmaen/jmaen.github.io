@@ -12,7 +12,7 @@
     },
     {
         "name": "snapper",
-        "description": "JUnit extension for Selenium-based visual regression testing in Java",
+        "description": "JUnit extension for Selenium-based visual regression testing",
         "theme": "#F2D388",
         "link": "https://github.com/jmaen/snapper#readme"
     },

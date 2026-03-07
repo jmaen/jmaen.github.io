@@ -13,10 +13,10 @@ title                    : "Jannik Mänzer"
 title_separator          : "&#124;" # The separator between the page title and the site title in the HTML title tag
 name                     : &name "Jannik Mänzer" # Update this with your name, this is used in the author profile and other places
 description              : &description "TODO"   # Update this with a general description of your site, this is the default if not overridden by a page
-url                      : https://academicpages.github.io # The base hostname & protocol for your site e.g. "https://[your GitHub username].github.io",
+url                      : https://jmaen.github.io # The base hostname & protocol for your site e.g. "https://[your GitHub username].github.io",
                                                            # or if you already have some other page hosted on Github then use "https://[your GitHub username].github.io/[Your Repo Name]"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
-repository               : "academicpages/academicpages.github.io"
+repository               : "jmaen/jmaen.github.io"
 
 # Site Author - The following control what appear as part of the author content on the side bar.
 #               If a field is blank the icon and link will not appear, otherwise it will be shown.

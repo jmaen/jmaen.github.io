@@ -3,19 +3,13 @@
     ========================================================================== */
 
 /* Color codes used for the theme */
-$primary-color              : #0ea1c5;
-$gray                       : #7a8288;
-$dark-gray                  : mix(#000, $gray, 40%);
-$darker-gray                : mix(#000, $gray, 60%);
-$light-gray                 : mix(#fff, $gray, 50%);
-
-$background                 : #474747;
-$background-light           : mix(#fff, $background, 80%);
-$background-lighter         : mix(#fff, $background, 90%);
-$text                       : #ffffff;
-$link                       : #0ea1c5;
-$link-dark                  : mix(#000, $link, 25%);
-$link-light                 : mix(#fff, $link, 25%);
+$primary                    : #2f7f93;
+$background                 : #252a34;
+$background-dark            : mix(#000, $background, 5%);
+$border                     : #4F5768;
+$border-dark                : mix(#000, $border, 10%);
+$text                       : #DDDFE0;
+$text-light                 : mix($background, $text, 50%);
 
 /* Color codes used for the site */
 $danger-color               : #ee5f5b;
@@ -36,21 +30,21 @@ $sidebar-screen-min-width   : 1024px;
 
 /* Dark theme for the site */
 html[data-theme="dark"] {
-    --global-base-color                 : #{$primary-color};
+    --global-base-color                 : #{$primary};
     --global-bg-color                   : #{$background};
-    --global-footer-bg-color            : #{$background};
-    --global-border-color               : #{$light-gray};
-    --global-dark-border-color          : #{$background-light};
-    --global-code-background-color      : #fafafa;
-    --global-code-text-color            : #{$darker-gray};
-    --global-fig-caption-color          : #{$light-gray};
-    --global-link-color                 : #{$link};
-    --global-link-color-hover           : #{$link-dark};
-    --global-link-color-visited         : #{$link-light};
+    --global-footer-bg-color            : #{$background-dark};
+    --global-border-color               : #{$border};
+    --global-dark-border-color          : #{$border-dark};
+    --global-code-background-color      : red;
+    --global-code-text-color            : red;
+    --global-fig-caption-color          : red;
+    --global-link-color                 : #{$primary};
+    --global-link-color-hover           : mix(#000, $primary, 25%);
+    --global-link-color-visited         : mix(#fff, $primary, 25%);
     --global-masthead-link-color        : #{$text};
-    --global-masthead-link-color-hover  : #{$primary-color};
+    --global-masthead-link-color-hover  : #{$text};
     --global-text-color                 : #{$text};
-    --global-text-color-light           : #f3f3f3;
-    --global-thead-color                : #{$background-lighter};
+    --global-text-color-light           : #{$text-light};
+    --global-thead-color                : #{$border};
 }
 

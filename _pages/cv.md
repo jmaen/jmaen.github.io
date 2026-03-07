@@ -6,25 +6,53 @@ author_profile: true
 
 {% include base_path %}
 
-Education
-======
-* Ph.D in Version Control Theory, GitHub University, 2018 (expected)
-* M.S. in Jekyll, GitHub University, 2014
-* B.S. in GitHub, GitHub University, 2012
+## Education
 
-Work Experience
-======
-* Spring 2024: Academic Pages Collaborator
-  * GitHub University
-  * Duties includes: Updates and improvements to template
-  * Supervisor: The Users
+<div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+  <div style="flex: 3;">
+    <strong>M.Sc. Machine Learning</strong> <br>
+    <em>University of Tübingen</em>
+    <!-- <ul>
+      <li>XXX</li>
+    </ul> -->
+  </div>
+  <div style="flex: 1; display: flex; justify-content: flex-end;">2025 – Present</div>
+</div>
 
-* Fall 2015: Research Assistant
-  * GitHub University
-  * Duties included: Merging pull requests
-  * Supervisor: Professor Hub
+<div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+  <div style="flex: 3;">
+    <strong>B.Sc. Computer Science</strong> <br>
+    <em>TU Dortmund University</em>
+    <ul>
+      <li>Grade: 1.3</li>
+      <li>Bachelor's thesis: Zero-Shot Denoising of Distributed Acoustic Sensing Data using Deep Priors</li>
+    </ul>
+  </div>
+  <div style="flex: 1; display: flex; justify-content: flex-end;">2021 – 2025</div>
+</div>
 
-* Summer 2015: Research Assistant
-  * GitHub University
-  * Duties included: Tagging issues
-  * Supervisor: Professor Git
+## Work Experience
+
+<div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+  <div style="flex: 3;">
+    <strong>Working Student, Corporate Innovation</strong> <br>
+    <em>Materna Information & Communications SE</em>
+    <ul>
+      <li>Developing software infrastructure and deployment workflows for experimental prototypes</li>
+      <li>Contributing to applied R&D projects within the Corporate Innovation department</li>
+    </ul>
+  </div>
+  <div style="flex: 1; display: flex; justify-content: flex-end;">2024 – Present</div>
+</div>
+
+<div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+  <div style="flex: 3;">
+    <strong>Working Student, Software Development</strong> <br>
+    <em>ingenit GmbH & Co. KG</em>
+    <ul>
+      <li>Developed full-stack solutions, and gained experience across the entire software development process</li>
+      <li>Supported through the DOMO scholarship program</li>
+    </ul>
+  </div>
+  <div style="flex: 1; display: flex; justify-content: flex-end;">2023 – 2024</div>
+</div>

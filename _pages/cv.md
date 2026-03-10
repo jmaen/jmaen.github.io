@@ -25,7 +25,7 @@ author_profile: true
     <em>TU Dortmund University</em>
     <ul>
       <li>Grade: 1.3</li>
-      <li>Bachelor's thesis: Zero-Shot Denoising of Distributed Acoustic Sensing Data using Deep Priors</li>
+      <li>Bachelor's thesis: <em>Zero-Shot Denoising of Distributed Acoustic Sensing Data using Deep Priors</em></li>
     </ul>
   </div>
   <div style="flex: 1; display: flex; justify-content: flex-end;">2021 – 2025</div>

@@ -35,6 +35,17 @@ author_profile: true
 
 <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
   <div style="flex: 3;">
+    <strong>Working Student, AI Research</strong> <br>
+    <em>Mercedes-Benz AG</em>
+    <!-- <ul>
+      <li></li>
+    </ul> -->
+  </div>
+  <div style="flex: 1; display: flex; justify-content: flex-end;">06/2026 – Present</div>
+</div>
+
+<div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+  <div style="flex: 3;">
     <strong>Working Student, Corporate Innovation</strong> <br>
     <em>Materna Information & Communications SE</em>
     <ul>
@@ -42,7 +53,7 @@ author_profile: true
       <li>Contributing to applied R&D projects within the Corporate Innovation department</li>
     </ul>
   </div>
-  <div style="flex: 1; display: flex; justify-content: flex-end;">2024 – Present</div>
+  <div style="flex: 1; display: flex; justify-content: flex-end;">06/2024 – 05/2026</div>
 </div>
 
 <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
@@ -54,5 +65,5 @@ author_profile: true
       <li>Supported through the DOMO scholarship program</li>
     </ul>
   </div>
-  <div style="flex: 1; display: flex; justify-content: flex-end;">2023 – 2024</div>
+  <div style="flex: 1; display: flex; justify-content: flex-end;">05/2023 – 05/2024</div>
 </div>

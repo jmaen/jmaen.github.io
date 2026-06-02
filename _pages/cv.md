@@ -49,8 +49,8 @@ author_profile: true
     <strong>Working Student, Corporate Innovation</strong> <br>
     <em>Materna Information & Communications SE</em>
     <ul>
-      <li>Developing software infrastructure and deployment workflows for experimental prototypes</li>
-      <li>Contributing to applied R&D projects within the Corporate Innovation department</li>
+      <li>Developed software infrastructure and deployment workflows for experimental prototypes</li>
+      <li>Contributed to applied R&D projects within the Corporate Innovation department</li>
     </ul>
   </div>
   <div style="flex: 1; display: flex; justify-content: flex-end;">06/2024 – 05/2026</div>

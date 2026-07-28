@@ -12,6 +12,7 @@ I want to understand how models can learn structured, environment-aware represen
 
 Specifically, I want to learn more about:
 - 3D Vision
-- Object-centric Representation Learning
 - Geometric Deep Learning
+- Object-centric Representation Learning
+- Generative Modeling
 - World Models

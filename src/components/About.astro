@@ -1,0 +1,143 @@
+---
+import { Image } from 'astro:assets';
+import { site } from '../site.config';
+import Icon from './Icon.astro';
+import photo from '../assets/profile.jpg';
+import { Content as Intro } from '../content/about.md';
+
+const contacts = [
+  site.email && { href: `mailto:${site.email}`, label: `Email (${site.email})`, icon: 'mail' },
+  site.github && { href: `https://github.com/${site.github}`, label: 'GitHub', icon: 'github' },
+  site.linkedin && { href: `https://www.linkedin.com/in/${site.linkedin}`, label: 'LinkedIn', icon: 'linkedin' },
+  site.scholar && { href: site.scholar, label: 'Google Scholar', icon: 'scholar' },
+].filter(Boolean) as { href: string; label: string; icon: 'mail' | 'github' | 'linkedin' | 'scholar' }[];
+---
+
+<section id="about" aria-labelledby="about-title">
+  <div class="hero">
+    <Image
+      class="photo"
+      src={photo}
+      alt={site.photoAlt}
+      width={152}
+      height={152}
+      densities={[1, 2, 3]}
+      loading="eager"
+      fetchpriority="high"
+    />
+    <div class="head">
+      <h1 id="about-title">{site.name}</h1>
+      <p class="role">{site.role}</p>
+      <ul class="contacts">
+        {contacts.map((c) => (
+          <li>
+            <a href={c.href} aria-label={c.label} title={c.label}>
+              <Icon name={c.icon} size={20} />
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+    <div class="intro">
+      <Intro />
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-areas:
+      'photo head'
+      'intro intro';
+    align-items: center;
+    gap: 1.75rem 2rem;
+  }
+
+  .photo {
+    grid-area: photo;
+    width: 9.5rem;
+    height: 9.5rem;
+    border-radius: 50%;
+    object-fit: cover;
+    background: var(--soft);
+  }
+
+  .head {
+    grid-area: head;
+    min-width: 0;
+  }
+
+  h1 {
+    font-size: 2.375rem;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+
+  .role {
+    margin-top: 0.35rem;
+    color: var(--muted);
+  }
+
+  .contacts {
+    display: flex;
+    gap: 0.25rem;
+    list-style: none;
+    margin: 0.6rem 0 0 -0.5rem;
+    padding: 0;
+  }
+
+  .contacts a {
+    display: grid;
+    place-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    color: var(--fg);
+  }
+
+  .contacts a:hover {
+    background: var(--soft);
+    color: var(--accent);
+  }
+
+  .intro {
+    grid-area: intro;
+  }
+
+  .intro :global(p + p),
+  .intro :global(p + ul) {
+    margin-top: 0.85rem;
+  }
+
+  .intro :global(ul) {
+    margin: 0.5rem 0 0;
+    padding-left: 1.25rem;
+  }
+
+  .intro :global(li::marker) {
+    color: var(--muted);
+  }
+
+  .intro :global(strong) {
+    font-weight: 600;
+  }
+
+  @media (max-width: 640px) {
+    .hero {
+      grid-template-columns: 1fr;
+      grid-template-areas: 'photo' 'head' 'intro';
+      gap: 1.25rem;
+    }
+
+    .photo {
+      width: 8rem;
+      height: 8rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+    }
+  }
+</style>

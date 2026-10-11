@@ -1,0 +1,33 @@
+---
+import { getPublications } from '../lib/content';
+import PublicationItem from './PublicationItem.astro';
+
+// Only rendered by the page when at least one publication exists.
+const { papers, presentations } = await getPublications();
+---
+
+<section id="publications" aria-labelledby="publications-title">
+  <h2 id="publications-title" class="section-title">Publications</h2>
+  {papers.length > 0 && (
+    <div class="subsection">
+      <h3 class="subsection-title">Papers</h3>
+      <ul class="pubs">{papers.map((p) => <PublicationItem pub={p} />)}</ul>
+    </div>
+  )}
+  {presentations.length > 0 && (
+    <div class="subsection">
+      <h3 class="subsection-title">Posters &amp; Talks</h3>
+      <ul class="pubs">{presentations.map((p) => <PublicationItem pub={p} />)}</ul>
+    </div>
+  )}
+</section>
+
+<style>
+  .pubs {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 1.25rem;
+  }
+</style>

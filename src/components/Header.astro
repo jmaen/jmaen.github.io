@@ -1,0 +1,213 @@
+---
+import { site } from '../site.config';
+import Icon from './Icon.astro';
+
+interface Props {
+  nav: { id: string; label: string }[];
+}
+const { nav } = Astro.props;
+---
+
+<header class="site-header">
+  <div class="container bar">
+    <a class="name" href="/#about">{site.name}</a>
+    <nav aria-label="Sections">
+      <ul>
+        {nav.map(({ id, label }) => (
+          <li>
+            <a href={`/#${id}`} data-section={id}>{label}</a>
+          </li>
+        ))}
+      </ul>
+      <button class="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
+        <span class="when-light"><Icon name="moon" size={18} /></span>
+        <span class="when-dark"><Icon name="sun" size={18} /></span>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--header-bg);
+    backdrop-filter: saturate(1.4) blur(10px);
+    -webkit-backdrop-filter: saturate(1.4) blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .bar {
+    min-height: var(--header-h);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.25rem 1rem;
+    padding-block: 0.5rem;
+  }
+
+  .name {
+    font-family: var(--font-head);
+    font-size: 1.1875rem;
+    font-weight: 500;
+    color: var(--fg);
+    white-space: nowrap;
+  }
+
+  .name:hover {
+    text-decoration: none;
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 1.1rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 0.9375rem;
+  }
+
+  ul a {
+    color: var(--muted);
+    padding-block: 0.25rem;
+  }
+
+  ul a:hover {
+    color: var(--fg);
+    text-decoration: none;
+  }
+
+  ul a[aria-current='true'] {
+    color: var(--accent);
+  }
+
+  .theme-toggle {
+    display: grid;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    margin-right: -0.5rem;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+  }
+
+  .theme-toggle:hover {
+    color: var(--fg);
+    background: var(--soft);
+  }
+
+  .theme-toggle span {
+    display: grid;
+  }
+
+  .when-dark {
+    display: none !important;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :global(:root:not([data-theme='light'])) .when-dark {
+      display: grid !important;
+    }
+    :global(:root:not([data-theme='light'])) .when-light {
+      display: none !important;
+    }
+  }
+
+  :global(:root[data-theme='dark']) .when-dark {
+    display: grid !important;
+  }
+  :global(:root[data-theme='dark']) .when-light {
+    display: none !important;
+  }
+
+  @media (max-width: 400px) {
+    .name {
+      font-size: 1.0625rem;
+    }
+    ul {
+      gap: 0 0.85rem;
+      font-size: 0.875rem;
+    }
+    nav {
+      gap: 0.5rem;
+    }
+  }
+</style>
+
+<script>
+  // Theme toggle: an explicit choice overrides the system preference and is remembered.
+  const root = document.documentElement;
+  const toggle = document.querySelector<HTMLButtonElement>('.theme-toggle');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)');
+
+  const current = () => root.dataset.theme ?? (systemDark.matches ? 'dark' : 'light');
+  const label = () => {
+    const next = current() === 'dark' ? 'light' : 'dark';
+    toggle?.setAttribute('aria-label', `Switch to ${next} mode`);
+    toggle?.setAttribute('title', `Switch to ${next} mode`);
+  };
+
+  toggle?.addEventListener('click', () => {
+    const next = current() === 'dark' ? 'light' : 'dark';
+    root.dataset.theme = next;
+    try {
+      localStorage.setItem('theme', next);
+    } catch {}
+    label();
+  });
+  systemDark.addEventListener('change', label);
+  label();
+
+  // Highlight the nav link of the section currently in view.
+  const links = new Map(
+    [...document.querySelectorAll<HTMLAnchorElement>('nav a[data-section]')].map((a) => [a.dataset.section!, a]),
+  );
+  const sections = [...links.keys()]
+    .map((id) => document.getElementById(id))
+    .filter((el): el is HTMLElement => el !== null);
+
+  if (sections.length) {
+    const setActive = (id: string) =>
+      links.forEach((a, key) => (key === id ? a.setAttribute('aria-current', 'true') : a.removeAttribute('aria-current')));
+
+    const update = () => {
+      // The last section whose top has passed a line 35% down the viewport.
+      const line = window.innerHeight * 0.35;
+      let active = sections[0].id;
+      for (const s of sections) if (s.getBoundingClientRect().top <= line) active = s.id;
+      // At the very bottom, the last section wins even if it is short.
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2)
+        active = sections[sections.length - 1].id;
+      setActive(active);
+    };
+
+    let queued = false;
+    window.addEventListener(
+      'scroll',
+      () => {
+        if (queued) return;
+        queued = true;
+        requestAnimationFrame(() => {
+          queued = false;
+          update();
+        });
+      },
+      { passive: true },
+    );
+    window.addEventListener('resize', update);
+    update();
+  }
+</script>

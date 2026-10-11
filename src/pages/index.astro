@@ -1,0 +1,24 @@
+---
+import Base from '../layouts/Base.astro';
+import About from '../components/About.astro';
+import Publications from '../components/Publications.astro';
+import Projects from '../components/Projects.astro';
+import Cv from '../components/Cv.astro';
+import { getPublications } from '../lib/content';
+
+const { any: hasPublications } = await getPublications();
+
+const nav = [
+  { id: 'about', label: 'About' },
+  ...(hasPublications ? [{ id: 'publications', label: 'Publications' }] : []),
+  { id: 'projects', label: 'Projects' },
+  { id: 'cv', label: 'CV' },
+];
+---
+
+<Base nav={nav}>
+  <About />
+  {hasPublications && <Publications />}
+  <Projects />
+  <Cv />
+</Base>

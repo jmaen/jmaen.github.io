@@ -1,0 +1,27 @@
+---
+import { site } from '../site.config';
+
+const built = new Date();
+const updated = built.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+---
+
+<footer class="container">
+  <p>© {built.getFullYear()} {site.name}</p>
+  <p>
+    Last updated <time datetime={built.toISOString().slice(0, 10)}>{updated}</time> ·
+    Built with <a href="https://astro.build">Astro</a>
+  </p>
+</footer>
+
+<style>
+  footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.25rem 1.5rem;
+    padding-block: 2rem 2.5rem;
+    border-top: 1px solid var(--line);
+    font-size: 0.875rem;
+    color: var(--muted);
+  }
+</style>

@@ -1,0 +1,98 @@
+---
+import { Image } from 'astro:assets';
+import { getProjects } from '../lib/content';
+import { inline } from '../lib/format';
+
+// Every thumbnail is cropped to the same slightly horizontal 4:3 frame.
+const THUMB_W = 256; // rendered at 176px wide on desktop, 256px on mobile
+const THUMB_H = 192;
+
+const projects = await getProjects();
+---
+
+<section id="projects" aria-labelledby="projects-title">
+  <h2 id="projects-title" class="section-title">Projects</h2>
+  <ul class="projects">
+    {projects.map(({ data }) => (
+      <li class:list={['project', { 'has-image': data.image }]}>
+        {data.image && (
+          <Image
+            src={data.image}
+            alt={data.imageAlt!}
+            width={THUMB_W}
+            height={THUMB_H}
+            fit="cover"
+            position={data.imagePosition}
+            densities={[1, 2]}
+          />
+        )}
+        <div class="text">
+          <h3>
+            <a href={data.link}>{data.title}</a>
+          </h3>
+          <p set:html={inline(data.description)} />
+          {data.note && <p class="note" set:html={inline(data.note)} />}
+        </div>
+      </li>
+    ))}
+  </ul>
+</section>
+
+<style>
+  .projects {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 1.6rem;
+  }
+
+  .project.has-image {
+    display: grid;
+    grid-template-columns: 11rem 1fr;
+    align-items: start;
+    gap: 1.5rem;
+  }
+
+  h3 {
+    font-family: var(--font-body);
+    font-size: 1.0625rem;
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .note {
+    margin-top: 0.3rem;
+    font-size: 0.9375rem;
+    color: var(--muted);
+  }
+
+  .note :global(a) {
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, var(--accent) 40%, transparent);
+    text-underline-offset: 3px;
+  }
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    margin-top: 0.3rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--img-border);
+  }
+
+  @media (max-width: 600px) {
+    .project.has-image {
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+
+    img {
+      max-width: 16rem;
+      margin: 0 auto;
+    }
+  }
+</style>

@@ -1,0 +1,71 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { site } from '../site.config';
+
+interface Props {
+  pub: CollectionEntry<'publications'>;
+}
+const { data } = Astro.props.pub;
+
+const labels = {
+  abstract: 'Abstract',
+  pdf: 'PDF',
+  arxiv: 'arXiv',
+  code: 'Code',
+  poster: 'Poster',
+  slides: 'Slides',
+} as const;
+const links = (Object.keys(labels) as (keyof typeof labels)[])
+  .filter((k) => data.links[k])
+  .map((k) => ({ href: data.links[k]!, label: labels[k] }));
+---
+
+<li class="pub">
+  <p class="title">{data.title}</p>
+  <p class="authors">
+    {data.authors.map((a, i) => (
+      <>
+        {site.selfAuthorNames.includes(a) ? <strong>{a}</strong> : a}
+        {i < data.authors.length - 1 && ', '}
+      </>
+    ))}
+  </p>
+  <p class="venue">{data.venue}, {data.year}</p>
+  {links.length > 0 && (
+    <ul class="chips">
+      {links.map((l) => (
+        <li>
+          <a class="chip" href={l.href}>{l.label}</a>
+        </li>
+      ))}
+    </ul>
+  )}
+</li>
+
+<style>
+  .title {
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .authors,
+  .venue {
+    font-size: 0.9375rem;
+  }
+
+  .authors {
+    color: var(--muted);
+  }
+
+  .authors strong {
+    font-weight: 600;
+    color: var(--fg);
+  }
+
+  .venue {
+    margin-top: 0.2rem;
+    font-size: 0.875rem;
+    font-style: italic;
+    color: var(--muted);
+  }
+</style>

@@ -18,7 +18,7 @@ export const site = {
   photoAlt: 'Portrait of Jannik Mänzer',
 
   description:
-    "Jannik Mänzer, MSc student in Machine Learning at the University of Tübingen. Interested in world models, and more broadly in how AI systems can develop an inherent understanding of the physical world.",
+    "Jannik Mänzer, MSc student in Machine Learning at the University of Tübingen.",
 };
 
 export type Site = typeof site;
